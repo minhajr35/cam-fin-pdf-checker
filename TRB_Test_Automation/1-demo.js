@@ -419,9 +419,6 @@ describe("Test Started", function(){
         await driver.findElement(By.xpath("*//option[normalize-space()='Save as nunc pro tunc']")).click();
         break;
 
-
-//adding a new comment
-
     }
 
 
