@@ -29,6 +29,7 @@ const userPass = process.env.AD_USER_PASSWORD;
 
 
 
+
 //---------------------After Login Process------------------------------
 //Individual | Business
 var customerType = "Individual" 
