@@ -1,32 +1,19 @@
 
 require('dotenv').config();
-const { assert } = require('chai');
+const { assert } = require('assert').strict;
 const {Builder, By, Key, until, WebElement} = require('selenium-webdriver');
-const driver = new Builder().forBrowser("chrome").build();
+//const driver = new Builder().forBrowser("chrome").build();
+
+
+
 
 //declaring variables so it will be easier to manipulate data later on:
-
-
 
 //---------------------Login Process-------------------------------
 const URL =process.env.TEST_URL
 const userName = process.env.AD_USER_NAME;
 const userPass = process.env.AD_USER_PASSWORD;
-
 //-----------------------------------------------------------------
-
-
-
-
-
-
-//new 
-
-
-
-
-
-
 
 
 
@@ -40,16 +27,16 @@ var caseType = "Refund"
 //Refuse | Real estate | Owner occupied | Water revenue | Business tax | Licenses and inspections | Water | Airport | Parking
 var taxCategory = "Water revenue"
 
-var taxType = "TAP"
+var taxType = "Shut off"
 
 
 
 var firstName = "Automated"  //requiredField
 var lastName = "Test"  //requiredField
-var ssn = 123456780
+var ssn = 0987654321
 var emailAdd = "trb.qatesting@gmail.com"
 var mailingAddress = "100 s broad st"  //requiredField
-
+var preferredCorrespondence = "mail"
 
 var city = "Philadelphia"  //requiredField
 
@@ -60,20 +47,21 @@ var ZipCode = 19102 //requiredField
 var effectiveDate = "12/12/2022"
 
 //Licenses and inspections | Revenue | Airport | PPA | PWD | Water Revenue Bureau
-var departmentName = "Licenses and inspections"
+var departmentName = "PWD"
 
-var accNumber = 80000
+var accNumber = 09876
 var initialBillDate = "01/01/2022"
 var disputedPeriodStart = "August 2010"
 var disputedPeriodEnd = "December 2022"
-var principalamt = 44500
+var principalamt = 44501
 var interestamt = 5000
 var penaltyamt = 499
-var commentTest = "Testing"
+var commentTest = "Testing Testing Testing Comment "
 var businessName = "Business Name Test"
+var caseDescription = 'Case Description Text Test'
 
 //Spanish | English | French  (need to add none for no interpreter)
-var InterpreterLang ="French"
+var InterpreterLang ="Spanish"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete | Save_as_nunc_pro_tunc
 var caseDecision ="Approve_Case"
@@ -85,16 +73,19 @@ var caseDecision ="Approve_Case"
 
 
 //describe block
-describe("Test Started", function(){
+describe("TRB AUTOMATED - Test Started", function(){
+
+
+  
 
     //it block
 
-    it("Test Ran Successfully", async function(){
+    it("TRB AUTOMATED - Test Ran Successfully", async function(){
 
     
     // launch the chrome browser and navigate to TRB
 
-      
+    let driver = await new Builder().forBrowser('chrome').build();
 
     await driver.get(URL);
 
@@ -144,9 +135,7 @@ describe("Test Started", function(){
               break;
               case"Business":
               await driver.findElement(By.xpath("//label[normalize-space()='Business']")).click();
-              
-              break;
-          }
+            break;}
 
   
 //----------------------------------------------------------------------------------------------------
@@ -154,7 +143,6 @@ describe("Test Started", function(){
     await driver.findElement(By.xpath("//div/select[1][@name='caseTypeId']")).click();
 
 
-   
 //----------------------------------------------------------------------------------------------------   
       switch(caseType){
         case"Interest and penalty":
@@ -165,16 +153,12 @@ describe("Test Started", function(){
         break;
         case"Refund":
         await driver.findElement(By.xpath("//*[contains(text(),'Refund')]")).click();
-
         break;
       }
 
   
 //----------------------------------------------------------------------------------------------------      
     //await driver.findElement(By.xpath("//*[contains(text(),'Interest and penalty')]")).click();
-
-    
-    
 //----------------------------------------------------------------------------------------------------
     
     switch(taxCategory){
@@ -187,44 +171,41 @@ describe("Test Started", function(){
       case"Real estate":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Real estate']")).click();
 
-
-
-      
-
-
-
       case"Owner occupied":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Owner occupied']")).click();
       break;
 
-
-     
-
-
       case"Water revenue":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Water revenue']")).click();
       break;
+
       case"Business tax":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Business tax']")).click();
       break;
+
       case"License and inspections":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Licenses and inspections']")).click();
-      await driver.findElement(By.xpath("//select/option[normalize-space()='Housing and Commerical development']")).click();
       break;
+
       case"Water":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Water']")).click();
       break;
+
       case"Airport":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Airport']")).click();
       break;
+
       case"Parking":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Parking']")).click();
-      break;}
+      break;
+      }
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 
-
-
-      switch(taxType){
+      switch(taxType)
+      {
         case"Realty transfer":
         await driver.findElement(By.xpath("//select/option[normalize-space()='Realty transfer']")).click();
         break;
@@ -256,12 +237,13 @@ describe("Test Started", function(){
         break;
 
 
-
-//----------------------------------------------------------------------------------------Water----------Rev
+//----------------------------------------------------------------------------------------------------
+//----------------------------------WATER REVENUE-----------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 
         case"Shut off":
         
-        await driver.findElement(By.xpath("//select/option[normalize-space()='Shut off']')]")).click();
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Shut off']")).click();
         break;
       
         case"TAP":
@@ -280,78 +262,137 @@ describe("Test Started", function(){
         break;
 
       
-      
-        }
-
-
-    
 
 //----------------------------------------------------------------------------------------------------
-
-      //await driver.findElement(By.xpath("//div/select[1][@name='taxTypeId']")).click();
-
-
-      //taxType
-      
-
-      
-
-
-
-       
-      
-        //await driver.findElement(By.xpath("//select/option[normalize-space()='Realty transfer']")).click();
-          
-          /*
-          switch(taxType){
-          case"Realty Transfer":
-          
-          await driver.findElement(By.xpath("//select/option[normalize-space()='Realty transfer']")).click();
-          break;
-
-          case"Real estate":
-          
-          //sibiling xpath type***************************************************************
-          await driver.findElement(By.xpath("//select[@name='taxCategoryId']/option[3]")).click();
-          break;
-
-          case"Real estate lien":
-          
-          await driver.findElement(By.xpath("//*[contains(text(),'Real estate lien')]")).click();
-          break;
-          default:
-            console.log('sorry something went wrong');
+//--------------------------------------------BUSINESS--TAX-------------------------------------------
+//----------------------------------------------------------------------------------------------------
+        case"Business income and receipts":
         
-            }
-          
-            */
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Business income and receipts']")).click();
+        break;
+      
+        case"Commercial Development":
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Commercial Development']")).click();
+        break;
+  
+  
+        case"Outdoor advertisement tax": 
+        //sibiling xpath type***************************************************************
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Outdoor advertisement tax']")).click();
+        break;
+  
+        case"Amusement tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Amusement tax']")).click();
+        break;
 
-            //if (taxCategory = "RefuseC"){
-              //await driver.findElement(By.xpath("//select/option[normalize-space()='Refuse collection']")).click();}
-          
-
-            //driver.sleep(10000);
-            //await driver.manage.setTimeouts(10000);
-            
-
-            
-              
-
-
-
-
-
-
-
-
-
-
+        case"Billboard tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Billboard tax']")).click();
+        break;
 
 
+        case"Corporate net income tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Corporate net income tax']")).click();
+        break;
+
+
+        case"Hospital tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Hospital tax']")).click();
+        break;
+      
+        case"Hotel room tax":
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Hotel room tax']")).click();
+        break;
+  
+  
+        case"Outdoor advertisement tax": 
+        //sibiling xpath type***************************************************************
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Outdoor advertisement tax']")).click();
+        break;
+  
+        case"Liquor sales tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Liquor sales tax']")).click();
+        break;
+
+        case"Parking lot tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Parking lot tax']")).click();
+        break;
+
+
+        case"Philly beverage tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Philly beverage tax']")).click();
+        break;
 
 
 
-    //await driver.findElement(By.xpath("//*[contains(text(),'Real estate lien')]")).click();
+        
+        case"Valet parking tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Valet parking tax']")).click();
+        break;
+
+        
+
+        case"Wage tax monthly":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Wage tax monthly']")).click();
+        break;
+        
+
+        case"Wage tax quarterly":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Wage tax quarterly']")).click();
+        break;
+        
+
+        case"Wage tax weekly":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Wage tax weekly']")).click();
+        break;
+        
+
+        case"Business tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Business tax']")).click();
+        break;
+        
+
+        case"Earnings tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Earnings tax']")).click();
+        break;
+        
+
+        case"Use and occupancy tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Use and occupancy tax']")).click();
+        break;
+        
+
+        case"School income tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='School income tax']")).click();
+        break;
+        
+
+        case"Use and Occupancy tax":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Use and Occupancy tax']")).click();
+        break;
+
+
+
+      }
+        //----------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------
+
+
     
     await driver.findElement(By.xpath("*//button[normalize-space()='SAVE AND CONTINUE']")).click();
 
@@ -379,6 +420,7 @@ describe("Test Started", function(){
 
 //----------------------------------------------------------------------------------------------------
     //interpreter selection
+
     await driver.findElement(By.xpath("//label[normalize-space()='Interpreter requested']")).click();
    
     switch(InterpreterLang){
@@ -399,15 +441,22 @@ describe("Test Started", function(){
 
 
 
+      
 
 
 
+    switch(preferredCorrespondence){
+      case "mail":
+      //MAIL or EMAIL option
+      await driver.findElement(By.xpath("//label[normalize-space()='Mail']")).click();
+      break;
+      case "email":
+      await driver.findElement(By.xpath("//label[normalize-space()='Email']")).click();
+      await driver.findElement(By.xpath("//input[@name='emailAddress']")).sendKeys(emailAdd);
+      break;
+      }
 
-
-
-    //email 
-    await driver.findElement(By.xpath("//label[normalize-space()='Email']")).click();
-    await driver.findElement(By.xpath("//input[@name='emailAddress']")).sendKeys(emailAdd);
+    
 
     //mailing address
     await driver.findElement(By.xpath("//input[@name='streetAddress1']")).sendKeys(mailingAddress);
@@ -530,6 +579,15 @@ describe("Test Started", function(){
       console.log('wrong');
     }
 
+
+    var sumOfamt 
+    sumOfamt = principalamt+interestamt+penaltyamt
+    try {
+      assert.deepEqual({elementText}, {sumOfamt});
+      console.log("ALL GOOD")
+    }catch(error){
+      console.log("error")
+    }
     
     
 
@@ -545,12 +603,7 @@ describe("Test Started", function(){
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
     
- 
-
-    
-
-
-    await driver.findElement(By.xpath("//textarea[@name='caseDescription']")).sendKeys("TEST");
+    await driver.findElement(By.xpath("//textarea[@name='caseDescription']")).sendKeys(caseDescription);
 
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();
 
@@ -567,17 +620,12 @@ describe("Test Started", function(){
     //Clicking on My options 
     await driver.findElement(By.xpath("*//input[@name='petitionNotetitle']")).sendKeys(commentTest);
 
-      //timeout
-    //await driver.wait(until.elementLocated(By.xpath("*//input[@name='petitionNotetext']")), 10000).sendKeys(commentTest);
-
-
+     
     await driver.findElement(By.xpath("*//textarea[@name='petitionNotetext']")).sendKeys(commentTest);
 
 
 
     //case decision action
-
-    
 
     switch(caseDecision){
 
@@ -596,11 +644,43 @@ describe("Test Started", function(){
 
     }
 
+    //Clicking on submit should create a new petition:
 
-
-
-
+    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
+
+
+
+
+    //----------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------
+    //Case History tab
+   /* await driver.manage().setTimeouts( { implicit: 10000 } );
+    await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
+
+    //Documents tab
+
+    await driver.findElement(By.xpath("//a[normalize-space()='Documents']")).click();
+
+    //Case contact tab
+
+    await driver.findElement(By.xpath("//a[normalize-space()='Case contact']")).click();
+
+    //Case notes tab
+
+    await driver.findElement(By.xpath("//a[normalize-space()='Case notes']")).click();
+
+    //Correspondence tab
+
+    await driver.findElement(By.xpath("//a[normalize-space()='Correspondence']")).click();
+
+    //Case details tab
+
+    await driver.findElement(By.xpath("//a[normalize-space()='Case details']")).click();
+    */
+
+
+
 
 
 
@@ -612,8 +692,8 @@ describe("Test Started", function(){
    //await driver.findElement(By.xpath("//a[normalize-space()='Logout']")).click();
 
    
-    //driver.findElement(By.xpath("//button[normalize-space()='CANCEL']")).click();
-    //await driver.quit();
+    driver.findElement(By.xpath("//button[normalize-space()='CANCEL']")).click();
+    await driver.quit();
 
 
 

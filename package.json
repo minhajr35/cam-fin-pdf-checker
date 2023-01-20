@@ -4,13 +4,17 @@
   "description": "Selenium automation code for TRB webapp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000",
+    "test:awesome": "mocha --reporter mochawesome || true",
+    "open:report": "open mochawesome-report/mochawesome.html"
   },
   "author": "minhajrahman",
   "license": "ISC",
   "dependencies": {
+    "assert": "^2.0.0",
     "dotenv": "^16.0.3",
     "mocha": "^10.2.0",
+    "mochawesome": "^7.1.3",
     "selenium-webdriver": "^4.7.1"
   },
   "devDependencies": {
