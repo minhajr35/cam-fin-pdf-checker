@@ -1,6 +1,7 @@
 
 require('dotenv').config();
 const { assert } = require('assert').strict;
+const { fstat } = require('fs');
 const {Builder, By, Key, until, WebElement} = require('selenium-webdriver');
 //const driver = new Builder().forBrowser("chrome").build();
 
@@ -47,7 +48,7 @@ var ZipCode = 19102 //requiredField
 var effectiveDate = "12/10/2022"
 
 //Licenses and inspections | Revenue | Airport | PPA | PWD | Water Revenue Bureau
-var departmentName = "PWD"
+var departmentName = "Airport"
 
 var accNumber = 09876
 var initialBillDate = "01/01/2022"
@@ -514,7 +515,7 @@ describe("TRB AUTOMATED - Test Started", function(){
         await driver.findElement(By.xpath("//*[contains(text(),'Revenue')][1]")).click();
         break;
         case"Airport":
-        await driver.findElement(By.xpath("//*[contains(text(),'Airport')]")).click();
+        await driver.findElement(By.xpath("//select[@name='departmentId']/option[2]")).click();
         break;
         case"PPA":
         await driver.findElement(By.xpath("//*[contains(text(),'Philadelphia Parking Authority')]")).click();
@@ -680,9 +681,9 @@ describe("TRB AUTOMATED - Test Started", function(){
     */
 
 
-
-
-
+    const fs = require('fs');
+    let screenshot = await driver.takeScreenshot();
+    fs.writeFileSync('screenshot.png', screenshot, {encoding: 'base64'});
 
 
     
@@ -692,8 +693,8 @@ describe("TRB AUTOMATED - Test Started", function(){
    //await driver.findElement(By.xpath("//a[normalize-space()='Logout']")).click();
 
    
-    driver.findElement(By.xpath("//button[normalize-space()='CANCEL']")).click();
-    await driver.quit();
+    //driver.findElement(By.xpath("//button[normalize-space()='CANCEL']")).click();
+    //await driver.quit();
 
 
 
