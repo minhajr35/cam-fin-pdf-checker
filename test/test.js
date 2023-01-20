@@ -44,7 +44,7 @@ var city = "Philadelphia"  //requiredField
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19102 //requiredField
-var effectiveDate = "12/12/2022"
+var effectiveDate = "12/10/2022"
 
 //Licenses and inspections | Revenue | Airport | PPA | PWD | Water Revenue Bureau
 var departmentName = "PWD"
