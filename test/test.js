@@ -680,11 +680,13 @@ describe("TRB AUTOMATED - Test Started", function(){
     await driver.findElement(By.xpath("//a[normalize-space()='Case details']")).click();
     */
 
-
+//----------------------------------------------------------------------------------
+//Screenshot
     const fs = require('fs');
     let screenshot = await driver.takeScreenshot();
-    fs.writeFileSync('screenshot.png', screenshot, {encoding: 'base64'});
-
+    let timestamp = new Date().toISOString().slice(0, -5).replace(/:/g, '-');
+    fs.writeFileSync(`screenshot-${timestamp}.png`, screenshot, {encoding: 'base64'});
+//----------------------------------------------------------------------------------
 
     
    //then Logout + closing the browser ending automation
