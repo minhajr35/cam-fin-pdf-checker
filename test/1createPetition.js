@@ -73,6 +73,10 @@ var caseDecision ="Approve_Case"
 
 
 
+//----------------------------------------------------------------------------------------------------  
+//----------------------------------------------------------------------------------------------------  
+//----------------------------------------------------------------------------------------------------  
+
 //describe block
 describe("TRB AUTOMATED - Test Started", function(){
 
@@ -108,18 +112,6 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     //after logging in - entering text or keywords
     await driver.manage().setTimeouts( { implicit: 7000 } );  
-  
-
-
-
-    //making sure we are on the correct page:
-    
-   // var element = driver.wait(until.elementLocated(By.xpath("//label[contains(text(),'Search by petitioner name, SSN, EIN, business name')]")), 10000);
-    //var elementText = element.getText();
-
-    //console.log(elementText);
-
-
 
 
     //click on add new case
@@ -566,30 +558,26 @@ describe("TRB AUTOMATED - Test Started", function(){
     await driver.findElement(By.xpath("//input[@name='penalty']")).sendKeys(Key.BACK_SPACE);
     await driver.findElement(By.xpath("//input[@name='penalty']")).sendKeys(penaltyamt);
 
+
+    
+
     console.log(principalamt+interestamt+penaltyamt);
 
-                          driver.sleep(10000);
+                          /*driver.sleep(10000);
     const element = driver.findElement(By.xpath("//div/p[@class='mt-4 is-size-2']"));
-    const elementText = element.getText();
+    const elementText = await element.getText();
+    const elementTexts= elementText.replace("$", "");
 
-    console.log("amount: "+elementText);
+    console.log("amount: "+elementTexts);
 
-    if (elementText === principalamt+interestamt+penaltyamt) {
+    if ((principalamt+interestamt+penaltyamt) === elementTexts ) {
       console.log('correct amount');
     } else {
       console.log('wrong');
     }
 
-
-    var sumOfamt 
-    sumOfamt = principalamt+interestamt+penaltyamt
-    try {
-      assert.deepEqual({elementText}, {sumOfamt});
-      console.log("ALL GOOD")
-    }catch(error){
-      console.log("error")
-    }
-    
+*/
+  
     
 
 
@@ -611,7 +599,6 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     //fileuploading 
     await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.docx");
-
     await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.docx");
 
 
@@ -647,7 +634,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     //Clicking on submit should create a new petition:
 
-    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+    await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
 
 
@@ -656,12 +643,27 @@ describe("TRB AUTOMATED - Test Started", function(){
     //----------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------
     //Case History tab
-   /* await driver.manage().setTimeouts( { implicit: 10000 } );
+    await driver.manage().setTimeouts( { implicit: 10000 } );
     await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
+    await driver.manage().setTimeouts( { implicit: 10000 } );
+    var docketnumber = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)")).getText();
+    console.log(docketnumber);
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Documents tab
 
-    await driver.findElement(By.xpath("//a[normalize-space()='Documents']")).click();
+    /* await driver.findElement(By.xpath("//a[normalize-space()='Documents']")).click();
 
     //Case contact tab
 
@@ -682,10 +684,10 @@ describe("TRB AUTOMATED - Test Started", function(){
 
 //----------------------------------------------------------------------------------
 //Screenshot
-    const fs = require('fs');
-    let screenshot = await driver.takeScreenshot();
-    let timestamp = new Date().toISOString().slice(0, -5).replace(/:/g, '-');
-    fs.writeFileSync(`screenshot-${timestamp}.png`, screenshot, {encoding: 'base64'});
+    //const fs = require('fs');
+   // let screenshot = await driver.takeScreenshot();
+    //let timestamp = new Date().toISOString().slice(0, -5).replace(/:/g, '-');
+    //fs.writeFileSync(`screenshot-${timestamp}.png`, screenshot, {encoding: 'base64'});
 //----------------------------------------------------------------------------------
 
     
