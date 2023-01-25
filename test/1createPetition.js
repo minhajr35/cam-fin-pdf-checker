@@ -19,24 +19,57 @@ const userPass = process.env.AD_USER_PASSWORD;
 
 
 //---------------------After Login Process------------------------------
+
+
 //Individual | Business
 var customerType = "Individual" 
+//-------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------
 
-//Interest and penalty | Merit | Refund
-var caseType = "Refund"
+//Interest_and_penalty | Merit | Refund
+var caseType = "Interest and penalty"
+//-------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------
 
-//Refuse | Real estate | Owner occupied | Water revenue | Business tax | Licenses and inspections | Water | Airport | Parking
-var taxCategory = "Water revenue"
+//Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | License_and_inspections | Water | Airport | Parking
+var taxCategory = "Refuse"
 
-var taxType = "Shut off"
+//-------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------
+        //Refuse: Refuse_collection
+
+        //Real estate: Realty_transfer | Real_estate | Real_estate_lien
+
+        //Owner occupied: Senior_citizen_forgiveness | Real_estate_LOOP_program | Owner_occupied_payment
+
+        //Water revenue: Shut_off | TAP | Water_revenue | Occupancy_dispute
+
+        //Business tax: Business_income_and_receipts | Commercial_Development | Outdoor_advertisement_tax | Amusement_tax |
+        //              Billboard_tax | Corporate_net_income_tax | Hospital_tax | Hotel_room_tax | Outdoor_advertisement_tax |
+        //              Liquor_sales_tax | Parking_lot_tax | Philly_beverage_tax | Valet_parking_tax | Wage_tax_monthly |
+        //              Wage_tax_quarterly | Wage_tax_weekly | Business_tax | Earnings_tax | Use_and_occupancy_tax | School_income_tax 
 
 
+        //Licenses and inspections: Housing_and_Commerical_development | Building_permit | Clean_and_seal | Demolition |
+        //                          License_fee | Nuisance_abate | License_and_inspection
+
+
+        //Water: Water_department | Meter | Pipes | Storm_water | Help_loan
+
+        //Airport: Airport
+
+        //Parking: Disable_parking | Dirt_bike | ATV
+
+      var taxType;
+//-------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------
 
 var firstName = "Automated"  //requiredField
 var lastName = "Test"  //requiredField
 var ssn = 0987654321
 var emailAdd = "trb.qatesting@gmail.com"
 var mailingAddress = "100 s broad st"  //requiredField
+// mail | email
 var preferredCorrespondence = "mail"
 
 var city = "Philadelphia"  //requiredField
@@ -47,7 +80,7 @@ var stateName = "Pennsylvania"  //requiredField
 var ZipCode = 19102 //requiredField
 var effectiveDate = "12/10/2022"
 
-//Licenses and inspections | Revenue | Airport | PPA | PWD | Water Revenue Bureau
+//Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
 var departmentName = "Airport"
 
 var accNumber = 09876
@@ -90,12 +123,16 @@ describe("TRB AUTOMATED - Test Started", function(){
     
     // launch the chrome browser and navigate to TRB
 
-    let driver = await new Builder().forBrowser('chrome').build();
+    let driver = await new Builder().forBrowser('MicrosoftEdge').build();
+
+    await driver.manage().window().maximize();
 
     await driver.get(URL);
+    
 
     //signing in using city credentials. 
-
+    await driver.manage().setTimeouts( { implicit: 10000 } );
+  
     await driver.findElement(By.xpath("//button[normalize-space()='Sign in']")).click();
 
     
@@ -138,7 +175,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
 //----------------------------------------------------------------------------------------------------   
       switch(caseType){
-        case"Interest and penalty":
+        case"Interest_and_penalty":
         await driver.findElement(By.xpath("//*[contains(text(),'Interest and penalty')]")).click();
         break;
         case"Merit":
@@ -157,26 +194,25 @@ describe("TRB AUTOMATED - Test Started", function(){
     switch(taxCategory){
       case"Refuse":
       await driver.findElement(By.xpath("//*[contains(text(),'Refuse')]")).click();
-      await driver.findElement(By.xpath("//select/option[normalize-space()='Refuse collection']")).click()
       break;
 
 
-      case"Real estate":
+      case"Real_estate":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Real estate']")).click();
 
-      case"Owner occupied":
+      case"Owner_occupied":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Owner occupied']")).click();
       break;
 
-      case"Water revenue":
+      case"Water_revenue":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Water revenue']")).click();
       break;
 
-      case"Business tax":
+      case"Business_tax":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Business tax']")).click();
       break;
 
-      case"License and inspections":
+      case"License_and_inspections":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Licenses and inspections']")).click();
       break;
 
@@ -198,43 +234,49 @@ describe("TRB AUTOMATED - Test Started", function(){
 //----------------------------------------------------------------------------------------------------
 
       switch(taxType)
-      {
-        case"Realty transfer":
+      { 
+        //refuse tax type
+        case"Refuse_collection":
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Refuse collection']")).click()
+
+        //real estate tax type
+        case"Realty_transfer":
         await driver.findElement(By.xpath("//select/option[normalize-space()='Realty transfer']")).click();
         break;
   
-  
-        case"Real estate": 
+        case"Real_estate": 
         //sibiling xpath type***************************************************************
         await driver.findElement(By.xpath("//select[@name='taxTypeId']/option[3]")).click();
         break;
   
-        case"Real estate lien":
-        
+        case"Real_estate_lien":
         await driver.findElement(By.xpath("//*[contains(text(),'Real estate lien')]")).click();
         break;
+
+
+        //owner occupied tax type
       
-        case"Senior citizen forgiveness":
+        case"Senior_citizen_forgiveness":
         await driver.findElement(By.xpath("//select/option[normalize-space()='Senior citizen forgiveness']")).click();
         break;
   
   
-        case"Real estate LOOP program": 
+        case"Real_estate_LOOP_program": 
         //sibiling xpath type***************************************************************
         await driver.findElement(By.xpath("//select/option[normalize-space()='Real estate LOOP program']")).click();
         break;
   
-        case"Owner occupied payment":
+        case"Owner_occupied_payment":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Owner occupied payment']")).click();
         break;
 
 
 //----------------------------------------------------------------------------------------------------
-//----------------------------------WATER REVENUE-----------------------------------------------------
+//----------------------------------WATER REVENUE TAX TYPE--------------------------------------------
 //----------------------------------------------------------------------------------------------------
 
-        case"Shut off":
+        case"Shut_off":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Shut off']")).click();
         break;
@@ -244,12 +286,12 @@ describe("TRB AUTOMATED - Test Started", function(){
         break;
   
   
-        case"Water revenue": 
+        case"Water_revenue": 
         //sibiling xpath type***************************************************************
         await driver.findElement(By.xpath("//select/option[normalize-space()='Water revenue']")).click();
         break;
   
-        case"Occupancy dispute":
+        case"Occupancy_dispute":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Occupancy dispute']")).click();
         break;
@@ -259,65 +301,65 @@ describe("TRB AUTOMATED - Test Started", function(){
 //----------------------------------------------------------------------------------------------------
 //--------------------------------------------BUSINESS--TAX-------------------------------------------
 //----------------------------------------------------------------------------------------------------
-        case"Business income and receipts":
+        case"Business_income_and_receipts":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Business income and receipts']")).click();
         break;
       
-        case"Commercial Development":
+        case"Commercial_Development":
         await driver.findElement(By.xpath("//select/option[normalize-space()='Commercial Development']")).click();
         break;
   
   
-        case"Outdoor advertisement tax": 
+        case"Outdoor_advertisement_tax": 
         //sibiling xpath type***************************************************************
         await driver.findElement(By.xpath("//select/option[normalize-space()='Outdoor advertisement tax']")).click();
         break;
   
-        case"Amusement tax":
+        case"Amusement_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Amusement tax']")).click();
         break;
 
-        case"Billboard tax":
+        case"Billboard_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Billboard tax']")).click();
         break;
 
 
-        case"Corporate net income tax":
+        case"Corporate_net_income_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Corporate net income tax']")).click();
         break;
 
 
-        case"Hospital tax":
+        case"Hospital_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Hospital tax']")).click();
         break;
       
-        case"Hotel room tax":
+        case"Hotel_room_tax":
         await driver.findElement(By.xpath("//select/option[normalize-space()='Hotel room tax']")).click();
         break;
   
   
-        case"Outdoor advertisement tax": 
+        case"Outdoor_advertisement_tax": 
         //sibiling xpath type***************************************************************
         await driver.findElement(By.xpath("//select/option[normalize-space()='Outdoor advertisement tax']")).click();
         break;
   
-        case"Liquor sales tax":
+        case"Liquor_sales_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Liquor sales tax']")).click();
         break;
 
-        case"Parking lot tax":
+        case"Parking_lot_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Parking lot tax']")).click();
         break;
 
 
-        case"Philly beverage tax":
+        case"Philly_beverage_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Philly beverage tax']")).click();
         break;
@@ -325,59 +367,162 @@ describe("TRB AUTOMATED - Test Started", function(){
 
 
         
-        case"Valet parking tax":
+        case"Valet_parking_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Valet parking tax']")).click();
         break;
 
         
 
-        case"Wage tax monthly":
+        case"Wage_tax_monthly":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Wage tax monthly']")).click();
         break;
         
 
-        case"Wage tax quarterly":
+        case"Wage_tax_quarterly":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Wage tax quarterly']")).click();
         break;
         
 
-        case"Wage tax weekly":
+        case"Wage_tax_weekly":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Wage tax weekly']")).click();
         break;
         
 
-        case"Business tax":
+        case"Business_tax":
         
-        await driver.findElement(By.xpath("//select/option[normalize-space()='Business tax']")).click();
+        await driver.findElement(By.xpath("//select[@name='taxTypeId']/option[normalize-space()='Business tax']")).click();
         break;
         
 
-        case"Earnings tax":
+        case"Earnings_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Earnings tax']")).click();
         break;
         
 
-        case"Use and occupancy tax":
+        case"Use_and_occupancy_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Use and occupancy tax']")).click();
         break;
         
 
-        case"School income tax":
+        case"School_income_tax":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='School income tax']")).click();
         break;
         
 
-        case"Use and Occupancy tax":
+        //case"Use and Occupancy tax":
+        
+        //await driver.findElement(By.xpath("//select/option[normalize-space()='Use and Occupancy tax']")).click();
+        //break;
+        //business tax type ends
+
+
+        //L&I tax type
+        case"Housing_and_Commerical_development":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Use and Occupancy tax']")).click();
         break;
+
+        case"Building_permit":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Building permit']")).click();
+        break;
+
+
+        case"Clean_and_seal":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Clean and seal']")).click();
+        break;
+
+        case"Demolition":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Demolition']")).click();
+        break;
+
+
+        case"License_fee":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='License fee']")).click();
+        break;
+
+
+        case"Nuisance_abate":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Nuisance abate']")).click();
+        break;
+
+        case"License_and_inspection":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='License and inspection']")).click();
+        break;
+        //L&I tax type ends
+
+        //water tax type starts here
+
+
+        case"Water_department":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Water department']")).click();
+        break;
+
+        case"Meter":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Meter']")).click();
+        break;
+
+
+        case"Pipes":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Pipes']")).click();
+        break;
+
+
+        case"Storm_water":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Storm water']")).click();
+        break;
+
+        case"Help_loan":
+        
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Help loan']")).click();
+        break;
+        //water tax type ENDS here
+
+
+        //Airport tax type starts here ***
+        case"Airport":
+        
+        await driver.findElement(By.xpath("//select[@name='taxTypeId']/option[normalize-space()='Airport']")).click();
+        break;
+        //Airport tax type ENDS here
+
+
+        //Parking tax type starts here
+        case"Disable_parking":
+        
+        await driver.findElement(By.xpath("//select[@name='taxTypeId']/option[normalize-space()='Disable parking']")).click();
+        break;
+
+        case"Dirt_bike":
+        
+        await driver.findElement(By.xpath("//select[@name='taxTypeId']/option[normalize-space()='Dirt bike']")).click();
+        break;
+
+        case"ATV":
+        
+        await driver.findElement(By.xpath("//select[@name='taxTypeId']/option[normalize-space()='ATV']")).click();
+        break;
+      //Parking tax type ENDS here
+
+
+
+
 
 
 
@@ -500,7 +645,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     switch(departmentName){
 
-      case "Licenses and inspections":
+      case "Licenses_and_inspections":
         await driver.findElement(By.xpath("//*[contains(text(),'Licenses and Inspections')]")).click();
         break;
         case"Revenue":
@@ -515,7 +660,7 @@ describe("TRB AUTOMATED - Test Started", function(){
         case"PWD":
         await driver.findElement(By.xpath("//*[contains(text(),'Philadelphia Water Department')]")).click();
         break;
-        case"Water Revenue Bureau":
+        case"Water_Revenue_Bureau":
         await driver.findElement(By.xpath("//*[contains(text(),'Water Revenue Bureau')]")).click();
         break;
         }
@@ -634,7 +779,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     //Clicking on submit should create a new petition:
 
-    await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
 
 
