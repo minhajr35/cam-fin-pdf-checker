@@ -27,12 +27,12 @@ var customerType = "Individual"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Interest_and_penalty | Merit | Refund
-var caseType = "Refund"
+var caseType = "Merit"
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
-var taxCategory = "Parking"
+var taxCategory = "Business_tax"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ var taxCategory = "Parking"
 
         //Parking: Disable_parking | Dirt_bike | ATV
 
-      var taxType = "Dirt_bike" 
+      var taxType = "Philly_beverage_tax" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -102,12 +102,17 @@ var caseDecision ="Approve_Case"
 
 
 
+//MicrosoftEdge | chrome
+var browserSelect = "chrome"
+
+
+
 
 
 
 
 //----------------------------------------------------------------------------------------------------  
-//----------------------------------------------------------------------------------------------------  
+//-------------------------------------TRB AUTOMATION CODE--------------------------------------------  
 //----------------------------------------------------------------------------------------------------  
 
 //describe block
@@ -123,7 +128,7 @@ describe("TRB AUTOMATED - Test Started", function(){
     
     // launch the chrome browser and navigate to TRB
 
-    let driver = await new Builder().forBrowser('MicrosoftEdge').build();
+    let driver = await new Builder().forBrowser(browserSelect).build();
 
     await driver.manage().window().maximize();
 
@@ -137,9 +142,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     
     //needed use implicit wait in order to give DOM certain duration to load to find element
-
     await driver.manage().setTimeouts( { implicit: 10000 } );
-    //await driver.findElement(By.xpath("//button[@id='AzureADPhilaExchange']")).click();
 
     await driver.findElement(By.xpath("//input[@id='signInName']")).sendKeys(userName);
     await driver.findElement(By.xpath("//input[@id='password']")).sendKeys(userPass);
@@ -187,8 +190,7 @@ describe("TRB AUTOMATED - Test Started", function(){
       }
 
   
-//----------------------------------------------------------------------------------------------------      
-    //await driver.findElement(By.xpath("//*[contains(text(),'Interest and penalty')]")).click();
+//---------------------------------------------------------------------------------------------------- 
 //----------------------------------------------------------------------------------------------------
     
     switch(taxCategory){
@@ -230,7 +232,7 @@ describe("TRB AUTOMATED - Test Started", function(){
       }
 
 //----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
+//-----------------------------------Refuse Tax Type--------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 
       switch(taxType)
@@ -238,6 +240,11 @@ describe("TRB AUTOMATED - Test Started", function(){
         //refuse tax type
         case"Refuse_collection":
         await driver.findElement(By.xpath("//select/option[normalize-space()='Refuse collection']")).click()
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------Real Estate Tax Type----------------------------------------------
+//----------------------------------------------------------------------------------------------------
 
         //real estate tax type
         case"Realty_transfer":
@@ -253,8 +260,9 @@ describe("TRB AUTOMATED - Test Started", function(){
         await driver.findElement(By.xpath("//*[contains(text(),'Real estate lien')]")).click();
         break;
 
-
-        //owner occupied tax type
+//----------------------------------------------------------------------------------------------------
+//----------------------------------Owner Occupied Tax Type-------------------------------------------
+//----------------------------------------------------------------------------------------------------
       
         case"Senior_citizen_forgiveness":
         await driver.findElement(By.xpath("//select/option[normalize-space()='Senior citizen forgiveness']")).click();
@@ -296,10 +304,8 @@ describe("TRB AUTOMATED - Test Started", function(){
         await driver.findElement(By.xpath("//select/option[normalize-space()='Occupancy dispute']")).click();
         break;
 
-      
-
 //----------------------------------------------------------------------------------------------------
-//--------------------------------------------BUSINESS--TAX-------------------------------------------
+//--------------------------------------------Business Tax Type---------------------------------------
 //----------------------------------------------------------------------------------------------------
         case"Business_income_and_receipts":
         
@@ -414,16 +420,10 @@ describe("TRB AUTOMATED - Test Started", function(){
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='School income tax']")).click();
         break;
-        
 
-        //case"Use and Occupancy tax":
-        
-        //await driver.findElement(By.xpath("//select/option[normalize-space()='Use and Occupancy tax']")).click();
-        //break;
-        //business tax type ends
-
-
-        //L&I tax type
+//----------------------------------------------------------------------------------------------------
+//----------------------------------Licenses and Inspections Tax--------------------------------------
+//----------------------------------------------------------------------------------------------------
         case"Housing_and_Commerical_development":
         
         await driver.findElement(By.xpath("//select/option[normalize-space()='Use and Occupancy tax']")).click();
@@ -463,7 +463,9 @@ describe("TRB AUTOMATED - Test Started", function(){
         break;
         //L&I tax type ends
 
-        //water tax type starts here
+//----------------------------------------------------------------------------------------------------
+//----------------------------------Water Tax Type----------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 
 
         case"Water_department":
@@ -495,15 +497,18 @@ describe("TRB AUTOMATED - Test Started", function(){
         //water tax type ENDS here
 
 
-        //Airport tax type starts here ***
+//----------------------------------------------------------------------------------------------------
+//----------------------------------Airport Tax Type--------------------------------------------------
+//----------------------------------------------------------------------------------------------------
         case"Airport":
         
         await driver.findElement(By.xpath("//select[@name='taxTypeId']/option[normalize-space()='Airport']")).click();
         break;
         //Airport tax type ENDS here
 
-
-        //Parking tax type starts here
+//----------------------------------------------------------------------------------------------------
+//----------------------------------Parking Tax Type----------------------------------------------
+//----------------------------------------------------------------------------------------------------
         case"Disable_parking":
         
         await driver.findElement(By.xpath("//select[@name='taxTypeId']/option[normalize-space()='Disable parking']")).click();
@@ -520,14 +525,8 @@ describe("TRB AUTOMATED - Test Started", function(){
         break;
       //Parking tax type ENDS here
 
-
-
-
-
-
-
       }
-        //----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------------
 
 
@@ -669,10 +668,7 @@ describe("TRB AUTOMATED - Test Started", function(){
   //----------------------------------------------------------------------------------------------------
 
 
-
-
     await driver.findElement(By.xpath("//input[@name='accountNumber']")).sendKeys(accNumber);
-
 
     await driver.findElement(By.xpath("//input[@id='tb-property-search']")).sendKeys(mailingAddress);
 
@@ -681,19 +677,14 @@ describe("TRB AUTOMATED - Test Started", function(){
       //veryfying address:
     await driver.findElement(By.xpath("//button[normalize-space()='USE THIS ADDRESS']")).click();
 
-
-    
     await driver.findElement(By.xpath("//input[@name='initialBillDate']")).sendKeys(initialBillDate,Key.RETURN);
 
     await driver.findElement(By.xpath("//button[@class='button is-secondary has-icon add-disputeperiod']")).click();
-
 
     await driver.findElement(By.xpath("//input[@name='disputedPeriodStart']")).sendKeys(disputedPeriodStart);
 
     await driver.findElement(By.xpath("//input[@name='disputedPeriodEnd']")).sendKeys(disputedPeriodEnd);
 
-
-    
     await driver.findElement(By.xpath("//input[@name='principal']")).sendKeys(Key.BACK_SPACE);
     await driver.findElement(By.xpath("//input[@name='principal']")).sendKeys(principalamt);
 
@@ -704,8 +695,7 @@ describe("TRB AUTOMATED - Test Started", function(){
     await driver.findElement(By.xpath("//input[@name='penalty']")).sendKeys(penaltyamt);
 
 
-    
-
+  
     console.log(principalamt+interestamt+penaltyamt);
 
                           /*driver.sleep(10000);
