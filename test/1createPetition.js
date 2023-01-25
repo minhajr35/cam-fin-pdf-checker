@@ -27,30 +27,30 @@ var customerType = "Individual"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Interest_and_penalty | Merit | Refund
-var caseType = "Interest and penalty"
+var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
-//Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | License_and_inspections | Water | Airport | Parking
-var taxCategory = "Refuse"
+//Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
+var taxCategory = "Parking"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
         //Refuse: Refuse_collection
 
-        //Real estate: Realty_transfer | Real_estate | Real_estate_lien
+        //Real_estate: Realty_transfer | Real_estate | Real_estate_lien
 
-        //Owner occupied: Senior_citizen_forgiveness | Real_estate_LOOP_program | Owner_occupied_payment
+        //Owner_occupied: Senior_citizen_forgiveness | Real_estate_LOOP_program | Owner_occupied_payment
 
-        //Water revenue: Shut_off | TAP | Water_revenue | Occupancy_dispute
+        //Water_revenue: Shut_off | TAP | Water_revenue | Occupancy_dispute
 
-        //Business tax: Business_income_and_receipts | Commercial_Development | Outdoor_advertisement_tax | Amusement_tax |
+        //Business_tax: Business_income_and_receipts | Commercial_Development | Outdoor_advertisement_tax | Amusement_tax |
         //              Billboard_tax | Corporate_net_income_tax | Hospital_tax | Hotel_room_tax | Outdoor_advertisement_tax |
         //              Liquor_sales_tax | Parking_lot_tax | Philly_beverage_tax | Valet_parking_tax | Wage_tax_monthly |
         //              Wage_tax_quarterly | Wage_tax_weekly | Business_tax | Earnings_tax | Use_and_occupancy_tax | School_income_tax 
 
 
-        //Licenses and inspections: Housing_and_Commerical_development | Building_permit | Clean_and_seal | Demolition |
+        //Licenses_and_inspections: Housing_and_Commerical_development | Building_permit | Clean_and_seal | Demolition |
         //                          License_fee | Nuisance_abate | License_and_inspection
 
 
@@ -60,42 +60,42 @@ var taxCategory = "Refuse"
 
         //Parking: Disable_parking | Dirt_bike | ATV
 
-      var taxType;
+      var taxType = "Dirt_bike" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
-var firstName = "Automated"  //requiredField
-var lastName = "Test"  //requiredField
-var ssn = 0987654321
+var firstName = "MR-new"  //requiredField
+var lastName = "A.Test"  //requiredField
+var ssn = 657278101
 var emailAdd = "trb.qatesting@gmail.com"
 var mailingAddress = "100 s broad st"  //requiredField
 // mail | email
 var preferredCorrespondence = "mail"
 
-var city = "Philadelphia"  //requiredField
+var city = "New York"  //requiredField
 
-//Pennsylvania | New York | New Jersey
-var stateName = "Pennsylvania"  //requiredField
+//Pennsylvania | New_York | New_Jersey
+var stateName = "New_York"  //requiredField
 
 var ZipCode = 19102 //requiredField
-var effectiveDate = "12/10/2022"
+var effectiveDate = "10/10/2022"
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
-var departmentName = "Airport"
+var departmentName = "PPA"
 
-var accNumber = 09876
-var initialBillDate = "01/01/2022"
+var accNumber = 55555
+var initialBillDate = "03/01/2022"
 var disputedPeriodStart = "August 2010"
 var disputedPeriodEnd = "December 2022"
-var principalamt = 44501
-var interestamt = 5000
-var penaltyamt = 499
+var principalamt = 89000
+var interestamt = 14000
+var penaltyamt = 7300
 var commentTest = "Testing Testing Testing Comment "
 var businessName = "Business Name Test"
 var caseDescription = 'Case Description Text Test'
 
 //Spanish | English | French  (need to add none for no interpreter)
-var InterpreterLang ="Spanish"
+var InterpreterLang ="French"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete | Save_as_nunc_pro_tunc
 var caseDecision ="Approve_Case"
@@ -212,7 +212,7 @@ describe("TRB AUTOMATED - Test Started", function(){
       await driver.findElement(By.xpath("//select/option[normalize-space()='Business tax']")).click();
       break;
 
-      case"License_and_inspections":
+      case"Licenses_and_inspections":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Licenses and inspections']")).click();
       break;
 
@@ -617,10 +617,10 @@ describe("TRB AUTOMATED - Test Started", function(){
   case "Pennsylvania":
     await driver.findElement(By.xpath("//option[@value='PA']")).click();
     break;
-    case"New York":
+    case"New_York":
     await driver.findElement(By.xpath("//option[@value='NY']")).click();
     break;
-    case"New Jersey":
+    case"New_Jersey":
     await driver.findElement(By.xpath("//option[@value='NJ']")).click();
     break;
 }
