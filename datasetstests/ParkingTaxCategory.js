@@ -32,7 +32,7 @@ var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
-var taxCategory = "Water"
+var taxCategory = "Parking"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -60,11 +60,11 @@ var taxCategory = "Water"
 
         //--> Parking: Disable_parking | Dirt_bike | ATV
 
-      var taxType = "Storm_water" 
+      var taxType = "Disable_parking" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
-var firstName = "MR-new"  //requiredField
+var firstName = taxCategory  //requiredField
 var lastName = "A.Test"  //requiredField
 var phoneNumber = 1234567890
 var ssn = 657278101
@@ -99,7 +99,7 @@ var caseDescription = 'Case Description Text Test'
 var InterpreterLang ="French"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete | Save_as_nunc_pro_tunc
-var caseDecision ="Save_as_Incomplete"
+var caseDecision ="Approve_Case"
 
 
 
@@ -765,22 +765,22 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     }
 
-    //Clicking on submit should create a new petition:
+     //Clicking on submit should create a new petition:
 
-    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+     await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
 
-      //await driver.quit();
+     await driver.sleep(5000);
+      await driver.quit();
 
-
-    //----------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------
-    //Case History tab
-    await driver.manage().setTimeouts( { implicit: 10000 } );
-    await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
-    await driver.manage().setTimeouts( { implicit: 10000 } );
-    var docketnumber = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)")).getText();
-    console.log(docketnumber);
+   //----------------------------------------------------------------------------------------------------
+   //----------------------------------------------------------------------------------------------------
+   /*Case History tab
+   await driver.manage().setTimeouts( { implicit: 10000 } );
+   await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
+   await driver.manage().setTimeouts( { implicit: 10000 } );
+   var docketnumber = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)")).getText();
+   console.log(docketnumber);*/
 
 
 

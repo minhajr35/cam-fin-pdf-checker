@@ -16,8 +16,8 @@ const userName = process.env.AD_USER_NAME;
 const userPass = process.env.AD_USER_PASSWORD;
 //-----------------------------------------------------------------
 
-var docketNumber = "35SO-REF-TXZ6LP"
-var hearingDate = "01/24/2023"
+var docketNumber = "28SW-MER-XK87IU"
+var hearingDate = "02/13/2023"
 var sessionTime = "1PM"
 var scheduleType = "Hearing"
 
@@ -25,12 +25,14 @@ var scheduleType = "Hearing"
 
 
 
-
+describe("TRB AUTOMATED - Test Started", function(){
 
 
 
 
 it("TRB AUTOMATED - Test Ran Successfully", async function(){
+
+    
 
 let driver = new Builder().forBrowser('chrome').build();
 await driver.get(URL);
@@ -50,7 +52,7 @@ await driver.findElement(By.xpath("//button[@id='next']")).click();
 const pageTitle = await driver.getTitle();
     console.log(pageTitle);
 
-if ( pageTitle === "City of Philadelphia - Single Sign On"){
+if ( pageTitle === "Tax Review Board"){
      console.log("right page")
 } else {
     console.log("wrong page")
@@ -143,7 +145,6 @@ await driver.findElement(By.xpath("//div[@class='control is-large']//input[@plac
 
 
 
-
-
-
+});
+    
 });
