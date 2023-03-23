@@ -99,7 +99,7 @@ var caseDescription = 'Case Description Text Test'
 var InterpreterLang ="French"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete | Save_as_nunc_pro_tunc
-var caseDecision ="Save_as_Incomplete"
+var caseDecision ="Deny_Case"
 
 
 

@@ -14,7 +14,6 @@ const {Builder, By, Key, until, WebElement} = require('selenium-webdriver');
 const URL =process.env.TEST_URL
 const userName = process.env.AD_USER_NAME;
 const userPass = process.env.AD_USER_PASSWORD;
-
 //-----------------------------------------------------------------
 
 
@@ -28,12 +27,12 @@ var customerType = "Individual"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Interest_and_penalty | Merit | Refund
-var caseType = "Interest_and_penalty"
+var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
-var taxCategory = "Airport"
+var taxCategory = "Business_tax"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -61,14 +60,14 @@ var taxCategory = "Airport"
 
         //--> Parking: Disable_parking | Dirt_bike | ATV
 
-      var taxType = "Airport" 
+      var taxType = "Hospital_tax" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
 var firstName = taxCategory  //requiredField
 var lastName = "A.Test"  //requiredField
 var phoneNumber = 1234567890
-//var ssn = 657278101
+var ssn = 657278101
 var emailAdd = "trb.qatesting@gmail.com"
 var mailingAddress = "100 s broad st"  //requiredField
 // mail | email
@@ -77,7 +76,7 @@ var preferredCorrespondence = "mail"
 var city = "New York"  //requiredField
 
 //Pennsylvania | New_York | New_Jersey
-var stateName = "Pennsylvania"  //requiredField
+var stateName = "New_York"  //requiredField
 
 var ZipCode = 19102 //requiredField
 var effectiveDate = "10/10/2022"
@@ -100,7 +99,7 @@ var caseDescription = 'Case Description Text Test'
 var InterpreterLang ="French"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete | Save_as_nunc_pro_tunc
-var caseDecision ="Save_as_nunc_pro_tunc"
+var caseDecision ="Deny_Case"
 
 
 
@@ -203,7 +202,6 @@ describe("TRB AUTOMATED - Test Started", function(){
 
       case"Real_estate":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Real estate']")).click();
-      break;
 
       case"Owner_occupied":
       await driver.findElement(By.xpath("//select/option[normalize-space()='Owner occupied']")).click();
@@ -242,8 +240,7 @@ describe("TRB AUTOMATED - Test Started", function(){
       { 
         //refuse tax type
         case"Refuse_collection":
-        await driver.findElement(By.xpath("//select/option[normalize-space()='Refuse collection']")).click();
-        break;
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Refuse collection']")).click()
 
 
 //----------------------------------------------------------------------------------------------------
@@ -274,7 +271,7 @@ describe("TRB AUTOMATED - Test Started", function(){
   
   
         case"Real_estate_LOOP_program": 
-        //sibiling xpath type************
+        //sibiling xpath type***************************************************************
         await driver.findElement(By.xpath("//select/option[normalize-space()='Real estate LOOP program']")).click();
         break;
   
@@ -678,9 +675,12 @@ describe("TRB AUTOMATED - Test Started", function(){
       //veryfying address:
     await driver.findElement(By.xpath("//button[normalize-space()='USE THIS ADDRESS']")).click();
 
+
+    await driver.findElement(By.xpath("//label[normalize-space()='Appeal of a bill']")).click();
+
     await driver.findElement(By.xpath("//input[@name='initialBillDate']")).sendKeys(initialBillDate,Key.RETURN);
 
-    await driver.findElement(By.xpath("//button[@class='button is-secondary has-icon add-disputeperiod']")).click();
+    //await driver.findElement(By.xpath("//button[@class='button is-secondary has-icon add-disputeperiod']")).click();
 
     await driver.findElement(By.xpath("//input[@name='disputedPeriodStart']")).sendKeys(disputedPeriodStart);
 
@@ -734,7 +734,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
 
     //fileuploading 
-    await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.pdf");
+    await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.docx");
     await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.docx");
 
 
@@ -770,10 +770,9 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     //Clicking on submit should create a new petition:
 
-    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
-    
+    await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     //await driver.sleep(5000);
-      //await driver.quit();
+    //await driver.quit();
 
 
     //----------------------------------------------------------------------------------------------------

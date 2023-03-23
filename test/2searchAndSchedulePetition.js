@@ -16,8 +16,8 @@ const userName = process.env.AD_USER_NAME;
 const userPass = process.env.AD_USER_PASSWORD;
 //-----------------------------------------------------------------
 
-var docketNumber = "28SW-MER-XK87IU"
-var hearingDate = "02/13/2023"
+var docketNumber = "26BP-INP-0T44X5"
+var hearingDate = "03/24/2023"
 var sessionTime = "1PM"
 var scheduleType = "Hearing"
 
@@ -83,7 +83,7 @@ await driver.findElement(By.xpath("//div[@class='is-flex content']")).click();
 
 
 
-switch(sessionTime){
+/***switch(sessionTime){
 case"9AM":
 await driver.findElement(By.xpath("(//div[@class='control'])[3]")).click();
 break;
@@ -97,7 +97,8 @@ case"2PM":
 await driver.findElement(By.xpath("(//div[@class='control'])[6]")).click();
 break;
 
-}
+}**/
+
 //(//div[@class='control'])[3]
 //div[@class='control']//input[@type='radio' and @value='09:00:00']
 
@@ -123,8 +124,8 @@ break;
 
 
 
-await driver.findElement(By.xpath("//textarea[@name='Details']")).click();
-await driver.findElement(By.xpath("//textarea[@name='Details']")).sendKeys("Commenting");
+//await driver.findElement(By.xpath("//textarea[@name='Details']")).click();
+//await driver.findElement(By.xpath("//textarea[@name='Details']")).sendKeys("Commenting");
 await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
 await driver.findElement(By.xpath("//label[normalize-space()='I confirm that the information above is correct.']")).click();
 await driver.findElement(By.xpath("//button[normalize-space()='CONFIRM AND SUBMIT']")).click();
