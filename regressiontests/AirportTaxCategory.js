@@ -68,7 +68,7 @@ var taxCategory = "Airport"
 var firstName = taxCategory  //requiredField
 var lastName = "AutomatedTest"  //requiredField
 var phoneNumber = 1234567890
-//var ssn = 657278101
+var ssn = 657278101
 var emailAdd = "trb.qatesting@gmail.com"
 var mailingAddress = "100 s broad st"  //requiredField
 // mail | email
@@ -80,7 +80,7 @@ var city = "New York"  //requiredField
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19102 //requiredField
-var effectiveDate = "03/28/2023"  //effective date is the date the petitioner filled the petition.
+var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
 var departmentName = "Airport"
@@ -736,9 +736,10 @@ describe("TRB AUTOMATED - Test Started", function(){
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();
 
 
+    
     //fileuploading 
     await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.pdf");
-    await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.docx");
+    await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.pdf");
 
 
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();

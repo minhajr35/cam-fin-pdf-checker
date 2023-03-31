@@ -733,9 +733,9 @@ describe("TRB AUTOMATED - Test Started", function(){
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();
 
 
-    //fileuploading 
-    await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.docx");
-    await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.docx");
+   //fileuploading 
+   await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.pdf");
+   await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.pdf");
 
 
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();

@@ -65,7 +65,7 @@ var taxCategory = "Owner_occupied"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 var firstName = taxCategory  //requiredField
-var lastName = "A.Test"  //requiredField
+var lastName = "AutomatedTest"  //requiredField
 var phoneNumber = 1234567890
 var ssn = 657278101
 var emailAdd = "trb.qatesting@gmail.com"
@@ -73,21 +73,21 @@ var mailingAddress = "100 s broad st"  //requiredField
 // mail | email
 var preferredCorrespondence = "mail"
 
-var city = "New York"  //requiredField
+var city = "Philadelphia"  //requiredField
 
 //Pennsylvania | New_York | New_Jersey
-var stateName = "New_York"  //requiredField
+var stateName = "Pennsylvania"  //requiredField
 
-var ZipCode = 19102 //requiredField
-var effectiveDate = "10/10/2022"
+var ZipCode = 19110 //requiredField
+var effectiveDate = "03/28/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
 var departmentName = "PPA"
 
-var accNumber = 55555
-var initialBillDate = "03/01/2022"
-var disputedPeriodStart = "August 2010"
-var disputedPeriodEnd = "December 2022"
+var accNumber = 0354622000226005
+var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
+var disputedPeriodStart = "January 2023"
+var disputedPeriodEnd = "February 2023"
 var principalamt = 89000
 var interestamt = 14000
 var penaltyamt = 7300
@@ -98,8 +98,9 @@ var caseDescription = 'Case Description Text Test'
 //Spanish | English | French  (need to add none for no interpreter)
 var InterpreterLang ="French"
 
-//Approve_Case | Deny_Case | Save_as_Incomplete | Save_as_nunc_pro_tunc
+//Approve_Case | Deny_Case | Save_as_Incomplete 
 var caseDecision ="Approve_Case"
+
 
 
 
@@ -733,8 +734,8 @@ describe("TRB AUTOMATED - Test Started", function(){
 
 
     //fileuploading 
-    await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.docx");
-    await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.docx");
+    await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.pdf");
+    await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.pdf");
 
 
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();
