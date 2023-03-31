@@ -65,7 +65,7 @@ var city = "Philadelphia"  //requiredField
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19110 //requiredField
-var effectiveDate = "03/22/2023"  //effective date is the date the petitioner filled the petition.
+var effectiveDate = "03/28/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
 var departmentName = "PPA"

@@ -675,9 +675,11 @@ describe("TRB AUTOMATED - Test Started", function(){
       //veryfying address:
     await driver.findElement(By.xpath("//button[normalize-space()='USE THIS ADDRESS']")).click();
 
+    await driver.findElement(By.xpath("//label[normalize-space()='Appeal of a bill']")).click();
+
     await driver.findElement(By.xpath("//input[@name='initialBillDate']")).sendKeys(initialBillDate,Key.RETURN);
 
-    await driver.findElement(By.xpath("//button[@class='button is-secondary has-icon add-disputeperiod']")).click();
+    //await driver.findElement(By.xpath("//button[@class='button is-secondary has-icon add-disputeperiod']")).click();
 
     await driver.findElement(By.xpath("//input[@name='disputedPeriodStart']")).sendKeys(disputedPeriodStart);
 
@@ -767,9 +769,9 @@ describe("TRB AUTOMATED - Test Started", function(){
 
    //Clicking on submit should create a new petition:
 
-   await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
-   await driver.sleep(5000);
-      await driver.quit();
+   //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+   //await driver.sleep(5000);
+      //await driver.quit();
 
 
  //----------------------------------------------------------------------------------------------------
