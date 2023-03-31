@@ -32,20 +32,35 @@ var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
-var taxCategory = "Licenses_and_inspections"
+var taxCategory = "Water_revenue"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
+        //--> Refuse: Refuse_collection
 
+        //--> Real_estate: Realty_transfer | Real_estate | Real_estate_lien
+
+        //--> Owner_occupied: Senior_citizen_forgiveness | Real_estate_LOOP_program | Owner_occupied_payment
+
+        //--> Water_revenue: Shut_off | TAP | Water_revenue | Occupancy_dispute
+
+        //--> Business_tax: Business_income_and_receipts | Commercial_Development | Outdoor_advertisement_tax | Amusement_tax |
+        //              Billboard_tax | Corporate_net_income_tax | Hospital_tax | Hotel_room_tax | Outdoor_advertisement_tax |
+        //              Liquor_sales_tax | Parking_lot_tax | Philly_beverage_tax | Valet_parking_tax | Wage_tax_monthly |
+        //              Wage_tax_quarterly | Wage_tax_weekly | Business_tax | Earnings_tax | Use_and_occupancy_tax | School_income_tax 
 
 
         //--> Licenses_and_inspections: Housing_and_Commerical_development | Building_permit | Clean_and_seal | Demolition |
         //                          License_fee | Nuisance_abate | License_and_inspection
 
 
-     
+        //--> Water: Water_department | Meter | Pipes | Storm_water | Help_loan
 
-      var taxType = "Building_permit" 
+        //--> Airport: Airport
+
+        //--> Parking: Disable_parking | Dirt_bike | ATV
+
+      var taxType = "Occupancy_dispute" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -64,29 +79,47 @@ var city = "Philadelphia"  //requiredField
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19110 //requiredField
-var effectiveDate = "03/22/2023"
+var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
-var departmentName = "PPA"
+var departmentName = "PWD"
 
 var accNumber = 0354622000226005
-var initialBillDate = "01/01/2023"
+var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
 var disputedPeriodStart = "January 2023"
 var disputedPeriodEnd = "February 2023"
 var principalamt = 89000
 var interestamt = 14000
 var penaltyamt = 7300
-var adminFee = 50
 var commentTest = "Testing Testing Testing Comment "
 var businessName = "Business Name Test"
 var caseDescription = 'Case Description Text Test'
 
 //Spanish | English | French  (need to add none for no interpreter)
-var InterpreterLang ="Spanish"
+var InterpreterLang ="French"
 
-//Approve_Case | Deny_Case | Save_as_Incomplete
-var caseDecision ="Deny_Case"
+//Approve_Case | Deny_Case | Save_as_Incomplete 
+var caseDecision ="Approve_Case"
 
+
+//------------------------------CURRENT-DATE-------------------
+var effectiveDate = new Date();  //effective date is the date the petitioner filled the petition.
+var dd = effectiveDate.getDate();
+
+var mm = effectiveDate.getMonth()+1; 
+var yyyy = effectiveDate.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+
+effectiveDate = mm+'/'+dd+'/'+yyyy;
+//------------------------------CURRENT-DATE-------------------
 
 
 //MicrosoftEdge | chrome
@@ -194,7 +227,7 @@ describe("TRB AUTOMATED - Test Started", function(){
       break;
 
       case"Water_revenue":
-      await driver.findElement(By.xpath("//select/option[normalize-space()='Water revenue']")).click();
+      await driver.findElement(By.xpath("(//select/option[normalize-space()='Water revenue'])[1]")).click();
       break;
 
       case"Business_tax":
@@ -283,7 +316,7 @@ describe("TRB AUTOMATED - Test Started", function(){
   
         case"Water_revenue": 
         //sibiling xpath type***************************************************************
-        await driver.findElement(By.xpath("//select/option[normalize-space()='Water revenue']")).click();
+        await driver.findElement(By.xpath("(//select/option[normalize-space()='Water revenue'])[2]")).click();
         break;
   
         case"Occupancy_dispute":
@@ -568,9 +601,6 @@ describe("TRB AUTOMATED - Test Started", function(){
 
 //----------------------------------------------------------------------------------------------------
 
-      await driver.findElement(By.xpath("//*[@name='hearingComments']")).sendKeys(commentTest);
-
-
 
     switch(preferredCorrespondence){
       case "mail":
@@ -666,9 +696,10 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     await driver.findElement(By.xpath("//label[normalize-space()='Appeal of a bill']")).click();
 
+
     await driver.findElement(By.xpath("//input[@name='initialBillDate']")).sendKeys(initialBillDate,Key.RETURN);
 
-   // await driver.findElement(By.xpath("//button[@class='button is-secondary has-icon add-disputeperiod']")).click();
+    //await driver.findElement(By.xpath("//button[@class='button is-secondary has-icon add-disputeperiod']")).click();
 
     await driver.findElement(By.xpath("//input[@name='disputedPeriodStart']")).sendKeys(disputedPeriodStart);
 
@@ -684,8 +715,6 @@ describe("TRB AUTOMATED - Test Started", function(){
     await driver.findElement(By.xpath("//input[@name='penalty']")).sendKeys(penaltyamt);
 
 
-    await driver.findElement(By.xpath("//*[@name='administrativeFee']")).sendKeys(Key.BACK_SPACE);
-    await driver.findElement(By.xpath("//*[@name='administrativeFee']")).sendKeys(adminFee);
   
     console.log(principalamt+interestamt+penaltyamt);
 
@@ -723,9 +752,9 @@ describe("TRB AUTOMATED - Test Started", function(){
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();
 
 
-    //fileuploading 
-    await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.pdf");
-    await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.pdf");
+ //fileuploading 
+ await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.pdf");
+ await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.pdf");
 
 
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();
@@ -763,7 +792,7 @@ describe("TRB AUTOMATED - Test Started", function(){
    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
    await driver.sleep(5000);
-   //await driver.quit();
+   await driver.quit();
 
 
  //----------------------------------------------------------------------------------------------------

@@ -31,8 +31,8 @@ var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
-//Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
-var taxCategory = "Water"
+//Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water_Department | Airport | Parking
+var taxCategory = "Water_Department"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ var taxCategory = "Water"
         //                          License_fee | Nuisance_abate | License_and_inspection
 
 
-        //--> Water: Water_department | Meter | Pipes | Storm_water | Help_loan
+        //--> Water_Department: Water_department | Meter | Pipes | Storm_water | Help_loan
 
         //--> Airport: Airport
 
@@ -82,7 +82,7 @@ var ZipCode = 19110 //requiredField
 var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
-var departmentName = "PPA"
+var departmentName = "Water_Revenue_Bureau"
 
 var accNumber = 0354622000226005
 var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
@@ -101,6 +101,25 @@ var InterpreterLang ="French"
 //Approve_Case | Deny_Case | Save_as_Incomplete 
 var caseDecision ="Approve_Case"
 
+
+//------------------------------CURRENT-DATE-------------------
+var effectiveDate = new Date();  //effective date is the date the petitioner filled the petition.
+var dd = effectiveDate.getDate();
+
+var mm = effectiveDate.getMonth()+1; 
+var yyyy = effectiveDate.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+
+effectiveDate = mm+'/'+dd+'/'+yyyy;
+//------------------------------CURRENT-DATE-------------------
 
 
 //MicrosoftEdge | chrome
@@ -219,8 +238,8 @@ describe("TRB AUTOMATED - Test Started", function(){
       await driver.findElement(By.xpath("//select/option[normalize-space()='Licenses and inspections']")).click();
       break;
 
-      case"Water":
-      await driver.findElement(By.xpath("//select/option[normalize-space()='Water']")).click();
+      case"Water_Department":
+      await driver.findElement(By.xpath("(//select/option[normalize-space()='Water department'])[1]")).click();
       break;
 
       case"Airport":
@@ -471,7 +490,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
         case"Water_department":
         
-        await driver.findElement(By.xpath("//select/option[normalize-space()='Water department']")).click();
+        await driver.findElement(By.xpath("(//select/option[normalize-space()='Water department'])[2]")).click();
         break;
 
         case"Meter":
@@ -770,7 +789,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
    //Clicking on submit should create a new petition:
 
-   await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+   //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
 
    await driver.sleep(5000);

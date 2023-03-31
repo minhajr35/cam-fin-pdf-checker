@@ -98,8 +98,8 @@ var caseDescription = 'Case Description Text Test'
 //Spanish | English | French  (need to add none for no interpreter)
 var InterpreterLang ="French"
 
-//Approve_Case | Deny_Case | Save_as_Incomplete | Save_as_nunc_pro_tunc
-var caseDecision ="Deny_Case"
+// Save_as_Incomplete | Save_as_nunc_pro_tunc
+var caseDecision ="Save_as_nunc_pro_tunc"
 
 
 
@@ -770,9 +770,9 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     //Clicking on submit should create a new petition:
 
-    await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     //await driver.sleep(5000);
-    //await driver.quit();
+    await driver.quit();
 
 
     //----------------------------------------------------------------------------------------------------

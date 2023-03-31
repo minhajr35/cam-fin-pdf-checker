@@ -32,7 +32,7 @@ var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
-var taxCategory = "Real_estate"
+var taxCategory = "Owner_occupied"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ var taxCategory = "Real_estate"
 
         //--> Parking: Disable_parking | Dirt_bike | ATV
 
-      var taxType = "Real_estate" 
+      var taxType = "Real_estate_LOOP_program" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -79,10 +79,10 @@ var city = "Philadelphia"  //requiredField
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19110 //requiredField
-var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
+var effectiveDate = "03/28/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
-var departmentName = "PPA"
+var departmentName = "Revenue"
 
 var accNumber = 0354622000226005
 var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
@@ -101,8 +101,24 @@ var InterpreterLang ="French"
 //Approve_Case | Deny_Case | Save_as_Incomplete 
 var caseDecision ="Approve_Case"
 
+//------------------------------CURRENT-DATE-------------------
+var effectiveDate = new Date();  //effective date is the date the petitioner filled the petition.
+var dd = effectiveDate.getDate();
 
+var mm = effectiveDate.getMonth()+1; 
+var yyyy = effectiveDate.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
 
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+
+effectiveDate = mm+'/'+dd+'/'+yyyy;
+//------------------------------CURRENT-DATE-------------------
 
 
 //MicrosoftEdge | chrome
@@ -772,10 +788,8 @@ describe("TRB AUTOMATED - Test Started", function(){
    //Clicking on submit should create a new petition:
 
    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
-    
-
-   await driver.sleep(5000);
-   await driver.quit();
+   //await driver.sleep(5000);
+      await driver.quit();
 
 
  //----------------------------------------------------------------------------------------------------

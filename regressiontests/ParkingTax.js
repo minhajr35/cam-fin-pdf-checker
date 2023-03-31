@@ -32,7 +32,7 @@ var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
-var taxCategory = "Water_revenue"
+var taxCategory = "Parking"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ var taxCategory = "Water_revenue"
 
         //--> Parking: Disable_parking | Dirt_bike | ATV
 
-      var taxType = "Occupancy_dispute" 
+      var taxType = "Disable_parking" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -79,7 +79,7 @@ var city = "Philadelphia"  //requiredField
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19110 //requiredField
-var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
+var effectiveDate = "03/28/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
 var departmentName = "PPA"
@@ -101,6 +101,24 @@ var InterpreterLang ="French"
 //Approve_Case | Deny_Case | Save_as_Incomplete 
 var caseDecision ="Approve_Case"
 
+//------------------------------CURRENT-DATE-------------------
+var effectiveDate = new Date();  //effective date is the date the petitioner filled the petition.
+var dd = effectiveDate.getDate();
+
+var mm = effectiveDate.getMonth()+1; 
+var yyyy = effectiveDate.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+
+effectiveDate = mm+'/'+dd+'/'+yyyy;
+//------------------------------CURRENT-DATE-------------------
 
 
 //MicrosoftEdge | chrome
@@ -677,7 +695,6 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     await driver.findElement(By.xpath("//label[normalize-space()='Appeal of a bill']")).click();
 
-
     await driver.findElement(By.xpath("//input[@name='initialBillDate']")).sendKeys(initialBillDate,Key.RETURN);
 
     //await driver.findElement(By.xpath("//button[@class='button is-secondary has-icon add-disputeperiod']")).click();
@@ -733,9 +750,9 @@ describe("TRB AUTOMATED - Test Started", function(){
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();
 
 
- //fileuploading 
- await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.pdf");
- await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.pdf");
+    //fileuploading 
+    await driver.findElement(By.xpath("//input[@name='inputPaperPetitionFile']")).sendKeys(__dirname+"\\testfile.pdf");
+    await driver.findElement(By.xpath("//input[@name='inputBillFile']")).sendKeys(__dirname+"\\testfile.pdf");
 
 
     await driver.findElement(By.xpath("//button[normalize-space()='SAVE AND CONTINUE']")).click();
@@ -768,22 +785,23 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     }
 
-   //Clicking on submit should create a new petition:
+     //Clicking on submit should create a new petition:
 
-   //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+     //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
-   await driver.sleep(5000);
-   await driver.quit();
 
+     await driver.sleep(5000);
+      await driver.quit();
 
- //----------------------------------------------------------------------------------------------------
- //----------------------------------------------------------------------------------------------------
- /*Case History tab
- await driver.manage().setTimeouts( { implicit: 10000 } );
- await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
- await driver.manage().setTimeouts( { implicit: 10000 } );
- var docketnumber = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)")).getText();
- console.log(docketnumber);*/
+   //----------------------------------------------------------------------------------------------------
+   //----------------------------------------------------------------------------------------------------
+   /*Case History tab
+   await driver.manage().setTimeouts( { implicit: 10000 } );
+   await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
+   await driver.manage().setTimeouts( { implicit: 10000 } );
+   var docketnumber = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)")).getText();
+   console.log(docketnumber);*/
+
 
 
 

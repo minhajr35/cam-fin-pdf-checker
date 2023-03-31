@@ -23,12 +23,12 @@ const userPass = process.env.AD_USER_PASSWORD;
 
 
 //Individual | Business
-var customerType = "Individual" 
+var customerType = "Business" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Interest_and_penalty | Merit | Refund
-var caseType = "Interest_and_penalty"
+var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -74,13 +74,14 @@ var mailingAddress = "100 s broad st"  //requiredField
 // mail | email
 var preferredCorrespondence = "mail"
 
-var city = "New York"  //requiredField
+var city = "Philadelphia"  //requiredField
 
 //Pennsylvania | New_York | New_Jersey
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19102 //requiredField
-var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
+
+//var effectiveDate = "03/31/2023"  
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
 var departmentName = "Airport"
@@ -101,6 +102,38 @@ var InterpreterLang ="French"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete 
 var caseDecision ="Deny_Case"
+
+
+
+//------------------------------CURRENT-DATE-------------------
+var effectiveDate = new Date();  //effective date is the date the petitioner filled the petition.
+var dd = effectiveDate.getDate();
+
+var mm = effectiveDate.getMonth()+1; 
+var yyyy = effectiveDate.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+
+effectiveDate = mm+'/'+dd+'/'+yyyy;
+//------------------------------CURRENT-DATE-------------------
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -777,7 +810,7 @@ describe("TRB AUTOMATED - Test Started", function(){
     //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
     //await driver.sleep(5000);
-      //await driver.quit();
+      await driver.quit();
 
 
     //----------------------------------------------------------------------------------------------------

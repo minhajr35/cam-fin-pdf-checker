@@ -27,16 +27,22 @@ var customerType = "Individual"
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Interest_and_penalty | Merit | Refund
-var caseType = "Interest_and_penalty"
+var caseType = "Refund"
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
 //Refuse | Real_estate| Owner_occupied | Water_revenue | Business_tax | Licenses_and_inspections | Water | Airport | Parking
-var taxCategory = "Business_tax"
+var taxCategory = "Real_estate"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
+        //--> Refuse: Refuse_collection
 
+        //--> Real_estate: Realty_transfer | Real_estate | Real_estate_lien
+
+        //--> Owner_occupied: Senior_citizen_forgiveness | Real_estate_LOOP_program | Owner_occupied_payment
+
+        //--> Water_revenue: Shut_off | TAP | Water_revenue | Occupancy_dispute
 
         //--> Business_tax: Business_income_and_receipts | Commercial_Development | Outdoor_advertisement_tax | Amusement_tax |
         //              Billboard_tax | Corporate_net_income_tax | Hospital_tax | Hotel_room_tax | Outdoor_advertisement_tax |
@@ -44,9 +50,17 @@ var taxCategory = "Business_tax"
         //              Wage_tax_quarterly | Wage_tax_weekly | Business_tax | Earnings_tax | Use_and_occupancy_tax | School_income_tax 
 
 
-       
+        //--> Licenses_and_inspections: Housing_and_Commerical_development | Building_permit | Clean_and_seal | Demolition |
+        //                          License_fee | Nuisance_abate | License_and_inspection
 
-      var taxType = "Hotel_room_tax" 
+
+        //--> Water: Water_department | Meter | Pipes | Storm_water | Help_loan
+
+        //--> Airport: Airport
+
+        //--> Parking: Disable_parking | Dirt_bike | ATV
+
+      var taxType = "Real_estate" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -65,10 +79,10 @@ var city = "Philadelphia"  //requiredField
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19110 //requiredField
-var effectiveDate = "03/28/2023"  //effective date is the date the petitioner filled the petition.
+var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
-var departmentName = "PPA"
+var departmentName = "Revenue"
 
 var accNumber = 0354622000226005
 var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
@@ -87,6 +101,25 @@ var InterpreterLang ="French"
 //Approve_Case | Deny_Case | Save_as_Incomplete 
 var caseDecision ="Approve_Case"
 
+
+//------------------------------CURRENT-DATE-------------------
+var effectiveDate = new Date();  //effective date is the date the petitioner filled the petition.
+var dd = effectiveDate.getDate();
+
+var mm = effectiveDate.getMonth()+1; 
+var yyyy = effectiveDate.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+
+effectiveDate = mm+'/'+dd+'/'+yyyy;
+//------------------------------CURRENT-DATE-------------------
 
 
 //MicrosoftEdge | chrome
@@ -569,13 +602,6 @@ describe("TRB AUTOMATED - Test Started", function(){
 //----------------------------------------------------------------------------------------------------
 
 
-
-    await driver.findElement(By.xpath("//*[@name='hearingComments']")).sendKeys(commentTest);
-
-
-
-
-
     switch(preferredCorrespondence){
       case "mail":
       //MAIL or EMAIL option
@@ -668,7 +694,6 @@ describe("TRB AUTOMATED - Test Started", function(){
       //veryfying address:
     await driver.findElement(By.xpath("//button[normalize-space()='USE THIS ADDRESS']")).click();
 
-
     await driver.findElement(By.xpath("//label[normalize-space()='Appeal of a bill']")).click();
 
     await driver.findElement(By.xpath("//input[@name='initialBillDate']")).sendKeys(initialBillDate,Key.RETURN);
@@ -707,7 +732,7 @@ describe("TRB AUTOMATED - Test Started", function(){
 
 */
   
-    await driver.findElement(By.xpath("//input[@name='customerNumber']")).sendKeys(ssn);
+    
 
 
 
@@ -761,21 +786,23 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     }
 
-    //Clicking on submit should create a new petition:
+   //Clicking on submit should create a new petition:
 
-    await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
-    //await driver.sleep(5000);
-    //await driver.quit();
+   //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+    
+
+   await driver.sleep(5000);
+   await driver.quit();
 
 
-    //----------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------
-    /*Case History tab
-    await driver.manage().setTimeouts( { implicit: 10000 } );
-    await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
-    await driver.manage().setTimeouts( { implicit: 10000 } );
-    var docketnumber = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)")).getText();
-    console.log(docketnumber);*/
+ //----------------------------------------------------------------------------------------------------
+ //----------------------------------------------------------------------------------------------------
+ /*Case History tab
+ await driver.manage().setTimeouts( { implicit: 10000 } );
+ await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
+ await driver.manage().setTimeouts( { implicit: 10000 } );
+ var docketnumber = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)")).getText();
+ console.log(docketnumber);*/
 
 
 

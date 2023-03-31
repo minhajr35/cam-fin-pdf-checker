@@ -82,7 +82,7 @@ var ZipCode = 19110 //requiredField
 var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
-var departmentName = "PPA"
+var departmentName = "Revenue"
 
 var accNumber = 0354622000226005
 var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
@@ -100,6 +100,26 @@ var InterpreterLang ="French"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete 
 var caseDecision ="Approve_Case"
+
+
+//------------------------------CURRENT-DATE-------------------
+var effectiveDate = new Date();  //effective date is the date the petitioner filled the petition.
+var dd = effectiveDate.getDate();
+
+var mm = effectiveDate.getMonth()+1; 
+var yyyy = effectiveDate.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+
+effectiveDate = mm+'/'+dd+'/'+yyyy;
+//------------------------------CURRENT-DATE-------------------
 
 
 //MicrosoftEdge | chrome
