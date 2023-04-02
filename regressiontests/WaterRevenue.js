@@ -60,7 +60,7 @@ var city = "Philadelphia"  //requiredField
 var stateName = "Pennsylvania"  //requiredField
 
 var ZipCode = 19110 //requiredField
-var effectiveDate = "03/31/2023"  //effective date is the date the petitioner filled the petition.
+
 
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
 var departmentName = "PWD"
@@ -789,10 +789,12 @@ describe("TRB AUTOMATED - Test Started", function(){
    //Clicking on submit should create a new petition:
 
    await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
-
-
     
    await driver.sleep(5000);
+
+   await driver.navigate().refresh();
+
+   await driver.sleep(2000);
 
 
       let docketID = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)"));
@@ -853,13 +855,13 @@ describe("TRB AUTOMATED - Test Started", function(){
         await driver.findElement(By.xpath("//button[normalize-space()='CONFIRM AND SUBMIT']")).click();
         
         
-        
+        await driver.sleep(2000);
         
        
 
 
 
-   //await driver.quit();
+   await driver.quit();
 
 
  //----------------------------------------------------------------------------------------------------

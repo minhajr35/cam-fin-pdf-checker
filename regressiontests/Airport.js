@@ -23,7 +23,7 @@ const userPass = process.env.AD_USER_PASSWORD;
 
 
 //Individual | Business
-var customerType = "Business" 
+var customerType = "Individual" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -93,7 +93,7 @@ var caseDescription = process.env.commentTest;
 var InterpreterLang ="French"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete 
-var caseDecision ="Deny_Case"
+var caseDecision ="Approve_Case"
 
 
 
@@ -799,9 +799,74 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     //Clicking on submit should create a new petition:
 
-    //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+    await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
     
-    //await driver.sleep(5000);
+    await driver.sleep(5000);
+
+    await driver.navigate().refresh();
+
+
+    
+    let docketID = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)"));
+    let docketNumber = await docketID.getText();
+    console.log(docketNumber);
+
+    var currentDate = new Date();
+    var hearingDate = new Date();
+        hearingDate.setDate(currentDate.getDate() + 7);  //---
+
+    var month = hearingDate.getMonth() + 1;
+    var day = hearingDate.getDate();
+    var year = hearingDate.getFullYear();
+    hearingDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+
+
+
+
+    //var sessionTime = "1PM"
+    var scheduleType = "Hearing"
+
+
+    
+
+
+
+    await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).click();
+    await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).sendKeys(Key.TAB);
+    await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).sendKeys(Key.TAB);
+    await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).sendKeys(Key.TAB);
+    await driver.findElement(By.xpath("//div[@class='control is-large']//input[@placeholder='Type keywords']")).sendKeys(docketNumber,Key.ENTER);
+    await driver.manage().setTimeouts( { implicit: 10000 } );
+    await driver.findElement(By.xpath("//a[normalize-space()='Schedule']")).click();
+
+
+    await driver.manage().setTimeouts( { implicit: 10000 } );
+    await driver.findElement(By.xpath("//div[@class='control is-large']//input[@placeholder='MM/DD/YYYY']")).sendKeys(hearingDate);
+
+    //click to activated that popup screen
+    await driver.findElement(By.xpath("//div[@class='is-flex content']")).click();
+
+    switch(scheduleType){
+      case"Hearing":
+      await driver.findElement(By.xpath("//select/option[normalize-space()='Hearing']")).click();
+      break;
+      case"DecisionOnly":
+      await driver.findElement(By.xpath("//select/option[normalize-space()='Decision only']")).click();
+      break;
+      case"Status":
+      await driver.findElement(By.xpath("//select/option[normalize-space()='Status']")).click();
+      break;
+      }
+      
+      
+    
+      await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+      await driver.findElement(By.xpath("//label[normalize-space()='I confirm that the information above is correct.']")).click();
+      await driver.findElement(By.xpath("//button[normalize-space()='CONFIRM AND SUBMIT']")).click();
+      
+      
+      await driver.sleep(5000);
+      
       await driver.quit();
 
 
