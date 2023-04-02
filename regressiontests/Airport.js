@@ -37,29 +37,10 @@ var taxCategory = "Airport"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
-        //--> Refuse: Refuse_collection
-
-        //--> Real_estate: Realty_transfer | Real_estate | Real_estate_lien
-
-        //--> Owner_occupied: Senior_citizen_forgiveness | Real_estate_LOOP_program | Owner_occupied_payment
-
-        //--> Water_revenue: Shut_off | TAP | Water_revenue | Occupancy_dispute
-
-        //--> Business_tax: Business_income_and_receipts | Commercial_Development | Outdoor_advertisement_tax | Amusement_tax |
-        //              Billboard_tax | Corporate_net_income_tax | Hospital_tax | Hotel_room_tax | Outdoor_advertisement_tax |
-        //              Liquor_sales_tax | Parking_lot_tax | Philly_beverage_tax | Valet_parking_tax | Wage_tax_monthly |
-        //              Wage_tax_quarterly | Wage_tax_weekly | Business_tax | Earnings_tax | Use_and_occupancy_tax | School_income_tax 
-
-
-        //--> Licenses_and_inspections: Housing_and_Commerical_development | Building_permit | Clean_and_seal | Demolition |
-        //                          License_fee | Nuisance_abate | License_and_inspection
-
-
-        //--> Water: Water_department | Meter | Pipes | Storm_water | Help_loan
 
         //--> Airport: Airport
 
-        //--> Parking: Disable_parking | Dirt_bike | ATV
+        
 
       var taxType = "Airport" 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -87,15 +68,26 @@ var ZipCode = 19102 //requiredField
 var departmentName = "Airport"
 
 var accNumber = 0354622000226005
-var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
+//------------------------------INITIAL DATE-------------------
+//initial bill date is the date of the bill they are challenging.
+
+var currentDate = new Date();
+var initialBillDate = new Date();
+initialBillDate.setDate(currentDate.getDate() - 20);  //---20 days prior
+
+var month = initialBillDate.getMonth() + 1;
+var day = initialBillDate.getDate();
+var year = initialBillDate.getFullYear();
+initialBillDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+//--------------------------------------------------------------
 var disputedPeriodStart = "January 2023"
 var disputedPeriodEnd = "February 2023"
 var principalamt = 89000
 var interestamt = 14000
 var penaltyamt = 7300
-var commentTest = "Testing Testing Testing Comment "
-var businessName = "Business Name Test"
-var caseDescription = 'Case Description Text Test'
+var commentTest = process.env.commentTest;
+var businessName = process.env.businessName;
+var caseDescription = process.env.commentTest;
 
 //Spanish | English | French  (need to add none for no interpreter)
 var InterpreterLang ="French"

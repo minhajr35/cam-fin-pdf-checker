@@ -85,15 +85,26 @@ var effectiveDate = "03/31/2023"  //effective date is the date the petitioner fi
 var departmentName = "Water_Revenue_Bureau"
 
 var accNumber = 0354622000226005
-var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
+//------------------------------INITIAL DATE-------------------
+//initial bill date is the date of the bill they are challenging.
+
+var currentDate = new Date();
+var initialBillDate = new Date();
+initialBillDate.setDate(currentDate.getDate() - 20);  //---20 days prior
+
+var month = initialBillDate.getMonth() + 1;
+var day = initialBillDate.getDate();
+var year = initialBillDate.getFullYear();
+initialBillDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+//--------------------------------------------------------------
 var disputedPeriodStart = "January 2023"
 var disputedPeriodEnd = "February 2023"
 var principalamt = 89000
 var interestamt = 14000
 var penaltyamt = 7300
-var commentTest = "Testing Testing Testing Comment "
-var businessName = "Business Name Test"
-var caseDescription = 'Case Description Text Test'
+var commentTest = process.env.commentTest;
+var businessName = process.env.businessName;
+var caseDescription = process.env.commentTest;
 
 //Spanish | English | French  (need to add none for no interpreter)
 var InterpreterLang ="French"
@@ -123,7 +134,7 @@ effectiveDate = mm+'/'+dd+'/'+yyyy;
 
 
 //MicrosoftEdge | chrome
-var browserSelect = "chrome"
+var browserSelect = "MicrosoftEdge"
 
 
 

@@ -36,29 +36,10 @@ var taxCategory = "Water_revenue"
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
-        //--> Refuse: Refuse_collection
-
-        //--> Real_estate: Realty_transfer | Real_estate | Real_estate_lien
-
-        //--> Owner_occupied: Senior_citizen_forgiveness | Real_estate_LOOP_program | Owner_occupied_payment
-
+    
         //--> Water_revenue: Shut_off | TAP | Water_revenue | Occupancy_dispute
 
-        //--> Business_tax: Business_income_and_receipts | Commercial_Development | Outdoor_advertisement_tax | Amusement_tax |
-        //              Billboard_tax | Corporate_net_income_tax | Hospital_tax | Hotel_room_tax | Outdoor_advertisement_tax |
-        //              Liquor_sales_tax | Parking_lot_tax | Philly_beverage_tax | Valet_parking_tax | Wage_tax_monthly |
-        //              Wage_tax_quarterly | Wage_tax_weekly | Business_tax | Earnings_tax | Use_and_occupancy_tax | School_income_tax 
-
-
-        //--> Licenses_and_inspections: Housing_and_Commerical_development | Building_permit | Clean_and_seal | Demolition |
-        //                          License_fee | Nuisance_abate | License_and_inspection
-
-
-        //--> Water: Water_department | Meter | Pipes | Storm_water | Help_loan
-
-        //--> Airport: Airport
-
-        //--> Parking: Disable_parking | Dirt_bike | ATV
+        
 
       var taxType = "Occupancy_dispute" 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -85,15 +66,15 @@ var effectiveDate = "03/31/2023"  //effective date is the date the petitioner fi
 var departmentName = "PWD"
 
 var accNumber = 0354622000226005
-var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
+
 var disputedPeriodStart = "January 2023"
 var disputedPeriodEnd = "February 2023"
 var principalamt = 89000
 var interestamt = 14000
 var penaltyamt = 7300
-var commentTest = "Testing Testing Testing Comment "
-var businessName = "Business Name Test"
-var caseDescription = 'Case Description Text Test'
+var commentTest = process.env.commentTest;
+var businessName = process.env.businessName;
+var caseDescription = process.env.commentTest;
 
 //Spanish | English | French  (need to add none for no interpreter)
 var InterpreterLang ="French"
@@ -120,6 +101,24 @@ if(mm<10)
 
 effectiveDate = mm+'/'+dd+'/'+yyyy;
 //------------------------------CURRENT-DATE-------------------
+
+
+
+//------------------------------INITIAL DATE-------------------
+//initial bill date is the date of the bill they are challenging.
+
+var currentDate = new Date();
+var initialBillDate = new Date();
+initialBillDate.setDate(currentDate.getDate() - 20);  //---20 days prior
+
+var month = initialBillDate.getMonth() + 1;
+var day = initialBillDate.getDate();
+var year = initialBillDate.getFullYear();
+initialBillDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+//--------------------------------------------------------------
+
+
+
 
 
 //MicrosoftEdge | chrome
@@ -789,10 +788,78 @@ describe("TRB AUTOMATED - Test Started", function(){
 
    //Clicking on submit should create a new petition:
 
-   //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+   await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+
+
     
    await driver.sleep(5000);
-   await driver.quit();
+
+
+      let docketID = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)"));
+      let docketNumber = await docketID.getText();
+      console.log(docketNumber);
+
+      var currentDate = new Date();
+      var hearingDate = new Date();
+          hearingDate.setDate(currentDate.getDate() + 7);  //---
+
+      var month = hearingDate.getMonth() + 1;
+      var day = hearingDate.getDate();
+      var year = hearingDate.getFullYear();
+      hearingDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+
+
+
+
+      //var sessionTime = "1PM"
+      var scheduleType = "Hearing"
+
+
+      
+
+
+
+      await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).click();
+      await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).sendKeys(Key.TAB);
+      await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).sendKeys(Key.TAB);
+      await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).sendKeys(Key.TAB);
+      await driver.findElement(By.xpath("//div[@class='control is-large']//input[@placeholder='Type keywords']")).sendKeys(docketNumber,Key.ENTER);
+      await driver.manage().setTimeouts( { implicit: 10000 } );
+      await driver.findElement(By.xpath("//a[normalize-space()='Schedule']")).click();
+
+
+      await driver.manage().setTimeouts( { implicit: 10000 } );
+      await driver.findElement(By.xpath("//div[@class='control is-large']//input[@placeholder='MM/DD/YYYY']")).sendKeys(hearingDate);
+
+      //click to activated that popup screen
+      await driver.findElement(By.xpath("//div[@class='is-flex content']")).click();
+
+      switch(scheduleType){
+        case"Hearing":
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Hearing']")).click();
+        break;
+        case"DecisionOnly":
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Decision only']")).click();
+        break;
+        case"Status":
+        await driver.findElement(By.xpath("//select/option[normalize-space()='Status']")).click();
+        break;
+        }
+        
+        
+      
+        await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
+        await driver.findElement(By.xpath("//label[normalize-space()='I confirm that the information above is correct.']")).click();
+        await driver.findElement(By.xpath("//button[normalize-space()='CONFIRM AND SUBMIT']")).click();
+        
+        
+        
+        
+       
+
+
+
+   //await driver.quit();
 
 
  //----------------------------------------------------------------------------------------------------

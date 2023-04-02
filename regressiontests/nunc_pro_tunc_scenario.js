@@ -104,7 +104,7 @@ var caseDecision ="Save_as_nunc_pro_tunc"
 
 
 //MicrosoftEdge | chrome
-var browserSelect = "chrome"
+var browserSelect = "MicrosoftEdge"
 
 
 

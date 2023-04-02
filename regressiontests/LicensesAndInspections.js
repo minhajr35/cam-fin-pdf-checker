@@ -70,16 +70,27 @@ var ZipCode = 19110 //requiredField
 var departmentName = "Licenses_and_inspections"
 
 var accNumber = 0354622000226005
-var initialBillDate = "01/01/2023"
+//------------------------------INITIAL DATE-------------------
+//initial bill date is the date of the bill they are challenging.
+
+var currentDate = new Date();
+var initialBillDate = new Date();
+initialBillDate.setDate(currentDate.getDate() - 20);  //---20 days prior
+
+var month = initialBillDate.getMonth() + 1;
+var day = initialBillDate.getDate();
+var year = initialBillDate.getFullYear();
+initialBillDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+//--------------------------------------------------------------
 var disputedPeriodStart = "January 2023"
 var disputedPeriodEnd = "February 2023"
 var principalamt = 89000
 var interestamt = 14000
 var penaltyamt = 7300
 var adminFee = 50
-var commentTest = "Testing Testing Testing Comment "
-var businessName = "Business Name Test"
-var caseDescription = 'Case Description Text Test'
+var commentTest = process.env.commentTest;
+var businessName = process.env.businessName;
+var caseDescription = process.env.commentTest;
 
 //Spanish | English | French  (need to add none for no interpreter)
 var InterpreterLang ="Spanish"
@@ -90,7 +101,7 @@ var caseDecision ="Deny_Case"
 
 
 //MicrosoftEdge | chrome
-var browserSelect = "chrome"
+var browserSelect = "MicrosoftEdge"
 
 
 //------------------------------CURRENT-DATE-------------------

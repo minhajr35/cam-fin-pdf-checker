@@ -22,7 +22,7 @@ const userPass = process.env.AD_USER_PASSWORD;
 
 
 //Individual | Business
-var customerType = "Individual" 
+var customerType = "Business" 
 //-------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -70,19 +70,30 @@ var ZipCode = 19110 //requiredField
 //Licenses_and_inspections | Revenue | Airport | PPA | PWD | Water_Revenue_Bureau
 var departmentName = "Revenue"
 
-var accNumber = 0354622000226005
-var initialBillDate = "01/01/2023"  //initial bill date is the date of the bill they are challenging.
+var accNumber = 0354622000226000
+//------------------------------INITIAL DATE-------------------
+//initial bill date is the date of the bill they are challenging.
+
+var currentDate = new Date();
+var initialBillDate = new Date();
+initialBillDate.setDate(currentDate.getDate() - 20);  //---20 days prior
+
+var month = initialBillDate.getMonth() + 1;
+var day = initialBillDate.getDate();
+var year = initialBillDate.getFullYear();
+initialBillDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+//--------------------------------------------------------------
 var disputedPeriodStart = "January 2023"
 var disputedPeriodEnd = "February 2023"
-var principalamt = 89000
-var interestamt = 14000
-var penaltyamt = 7300
-var commentTest = "Testing Testing Testing Comment "
-var businessName = "Business Name Test"
-var caseDescription = 'Case Description Text Test'
+var principalamt = 98800
+var interestamt = 100
+var penaltyamt = 300
+var commentTest = process.env.commentTest;
+var businessName = process.env.businessName;
+var caseDescription = process.env.commentTest;
 
 //Spanish | English | French  (need to add none for no interpreter)
-var InterpreterLang ="French"
+var InterpreterLang ="English"
 
 //Approve_Case | Deny_Case | Save_as_Incomplete 
 var caseDecision ="Approve_Case"
@@ -90,7 +101,7 @@ var caseDecision ="Approve_Case"
 
 
 //MicrosoftEdge | chrome
-var browserSelect = "chrome"
+var browserSelect = "MicrosoftEdge"
 
 
 //------------------------------CURRENT-DATE-------------------
@@ -781,29 +792,18 @@ describe("TRB AUTOMATED - Test Started", function(){
     //Clicking on submit should create a new petition:
 
     //await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
-    //await driver.sleep(5000);
+    await driver.sleep(5000);
     await driver.quit();
 
 
     //----------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------
-    /*Case History tab
-    await driver.manage().setTimeouts( { implicit: 10000 } );
+    //Case History tab
+    /*await driver.manage().setTimeouts( { implicit: 10000 } );
     await driver.findElement(By.xpath("//a[normalize-space()='Case history']")).click();
     await driver.manage().setTimeouts( { implicit: 10000 } );
     var docketnumber = await driver.findElement(By.css("div[class='column border-bottom-medium-grey'] p:nth-child(2)")).getText();
     console.log(docketnumber);*/
-
-
-
-
-
-
-
-
-
-
-
 
 
     //Documents tab
@@ -824,8 +824,8 @@ describe("TRB AUTOMATED - Test Started", function(){
 
     //Case details tab
 
-    await driver.findElement(By.xpath("//a[normalize-space()='Case details']")).click();
-    */
+    await driver.findElement(By.xpath("//a[normalize-space()='Case details']")).click();*/
+    
 
 //----------------------------------------------------------------------------------
 //Screenshot

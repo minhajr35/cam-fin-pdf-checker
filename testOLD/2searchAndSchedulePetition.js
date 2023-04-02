@@ -16,8 +16,21 @@ const userName = process.env.AD_USER_NAME;
 const userPass = process.env.AD_USER_PASSWORD;
 //-----------------------------------------------------------------
 
-var docketNumber = "26BP-INP-0T44X5"
-var hearingDate = "03/24/2023"
+var docketNumber = "35OD-REF-6GBM0I"
+//var hearingDate = "04/24/2023"
+
+var currentDate = new Date();
+var hearingDate = new Date();
+hearingDate.setDate(currentDate.getDate() + 7);  //---
+
+var month = hearingDate.getMonth() + 1;
+var day = hearingDate.getDate();
+var year = hearingDate.getFullYear();
+hearingDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+
+
+
+
 var sessionTime = "1PM"
 var scheduleType = "Hearing"
 
@@ -49,14 +62,7 @@ await driver.findElement(By.xpath("//button[@id='next']")).click();
 
 
 
-const pageTitle = await driver.getTitle();
-    console.log(pageTitle);
 
-if ( pageTitle === "Tax Review Board"){
-     console.log("right page")
-} else {
-    console.log("wrong page")
-}
 //await driver.quit();
 await driver.manage().setTimeouts( { implicit: 10000 } );
 await driver.findElement(By.xpath("//a[normalize-space()='Scheduler']")).click();
@@ -83,32 +89,6 @@ await driver.findElement(By.xpath("//div[@class='is-flex content']")).click();
 
 
 
-/***switch(sessionTime){
-case"9AM":
-await driver.findElement(By.xpath("(//div[@class='control'])[3]")).click();
-break;
-case"10AM":
-await driver.findElement(By.xpath("(//div[@class='control'])[4]")).click();
-break;
-case"1PM":
-await driver.findElement(By.xpath("(//div[@class='control'])[5]")).click();
-break;
-case"2PM":
-await driver.findElement(By.xpath("(//div[@class='control'])[6]")).click();
-break;
-
-}**/
-
-//(//div[@class='control'])[3]
-//div[@class='control']//input[@type='radio' and @value='09:00:00']
-
-
-
-//click to activated that popup screen
-await driver.findElement(By.xpath("//div[@class='is-flex content']")).click();
-
-
-
 switch(scheduleType){
 case"Hearing":
 await driver.findElement(By.xpath("//select/option[normalize-space()='Hearing']")).click();
@@ -122,10 +102,6 @@ break;
 }
 
 
-
-
-//await driver.findElement(By.xpath("//textarea[@name='Details']")).click();
-//await driver.findElement(By.xpath("//textarea[@name='Details']")).sendKeys("Commenting");
 await driver.findElement(By.xpath("//button[normalize-space()='SUBMIT']")).click();
 await driver.findElement(By.xpath("//label[normalize-space()='I confirm that the information above is correct.']")).click();
 await driver.findElement(By.xpath("//button[normalize-space()='CONFIRM AND SUBMIT']")).click();
@@ -134,8 +110,8 @@ await driver.findElement(By.xpath("//button[normalize-space()='CONFIRM AND SUBMI
 
 
 
-await driver.findElement(By.xpath("//a[normalize-space()='petitions']")).click();
-await driver.findElement(By.xpath("//div[@class='control is-large']//input[@placeholder='Type keywords']")).sendKeys(zdocketNumber,Key.ENTER);
+//await driver.findElement(By.xpath("//a[normalize-space()='petitions']")).click();
+//await driver.findElement(By.xpath("//div[@class='control is-large']//input[@placeholder='Type keywords']")).sendKeys(docketNumber,Key.ENTER);
 
 
 
