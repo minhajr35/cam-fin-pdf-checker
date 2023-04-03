@@ -101,7 +101,7 @@ var caseDecision ="Approve_Case"
 
 
 //MicrosoftEdge | chrome
-var browserSelect = "MicrosoftEdge"
+var browserSelect = "chrome"
 
 
 //------------------------------CURRENT-DATE-------------------

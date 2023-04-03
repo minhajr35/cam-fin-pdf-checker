@@ -114,7 +114,7 @@ effectiveDate = mm+'/'+dd+'/'+yyyy;
 
 
 //MicrosoftEdge | chrome
-var browserSelect = "MicrosoftEdge"
+var browserSelect = "chrome"
 
 
 
