@@ -20,7 +20,7 @@ describe("PDF Checker | Test Started", function(){
  //------------------------HEADLESS-------------------------------------    
 //----------------------------------------------------------------------
 
-              const chrome = require('selenium-webdriver/chrome');
+              /*const chrome = require('selenium-webdriver/chrome');
               const options = new chrome.Options();
               options.addArguments('--headless');
               options.addArguments('--disable-gpu');
@@ -32,7 +32,7 @@ describe("PDF Checker | Test Started", function(){
               .forBrowser(browserSelect)
               .setChromeOptions(options)
               .setChromeService(new chrome.ServiceBuilder(browserSelect.path))
-              .build();
+              .build();*/
 //----------------------------------------------------------------------   
 //----------------------------------------------------------------------
 
@@ -41,9 +41,9 @@ describe("PDF Checker | Test Started", function(){
 //----------------------------------------------------------------------
 //--------------------------NON-HEADLESS--------------------------------    
 //----------------------------------------------------------------------
-  /*  const driver = await new Builder().forBrowser(browserSelect).build();
+  const driver = await new Builder().forBrowser(browserSelect).build();
     await driver.manage().window().maximize();
-    */
+    
 //----------------------------------------------------------------------
 
 
@@ -52,6 +52,8 @@ describe("PDF Checker | Test Started", function(){
     //await driver.findElement(By.xpath("//a[normalize-space()='Find a Campaign Financial Report']")).click();
     await driver.findElement(By.xpath("//select/option[normalize-space()='2023']")).click();
     await driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
+    await driver.sleep(3000);
+    await driver.findElement(By.xpath("//option[normalize-space()='50']")).click();
       await driver.manage().setTimeouts( { implicit: 10000 } );  
       await driver.sleep(5000);
   
@@ -87,7 +89,7 @@ describe("PDF Checker | Test Started", function(){
       await driver.sleep(2000); 
       await driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
       await driver.sleep(3000); 
-      await driver.findElement(By.xpath("//option[normalize-space()='50']")).click();
+      //await driver.findElement(By.xpath("//option[normalize-space()='50']")).click();
       await driver.executeScript('window.scrollTo(0, document.body.scrollHeight)');
       await driver.findElement(By.xpath(`//a[normalize-space()='${page}']`)).click(); 
       await driver.sleep(3000);
@@ -110,7 +112,7 @@ describe("PDF Checker | Test Started", function(){
     {
       
 
-        await driver.sleep(1000);
+        await driver.sleep(4000);
 
         
 
@@ -119,16 +121,18 @@ describe("PDF Checker | Test Started", function(){
       await driver.executeScript('window.scrollTo(0, document.body.scrollHeight)');
       //await driver.findElement(By.xpath("//a[normalize-space()='Find a Campaign Financial Report']")).click();
       await driver.findElement(By.xpath("//select/option[normalize-space()='2023']")).click();
+      await driver.sleep(2000);
       await driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
       await driver.manage().setTimeouts( { implicit: 10000 } );  
       await driver.sleep(2000);
-      await driver.findElement(By.xpath("//option[normalize-space()='50']")).click();
+      //await driver.findElement(By.xpath("//option[normalize-space()='50']")).click();
       await driver.executeScript('window.scrollTo(0, document.body.scrollHeight)');
       
       
 
-      await driver.manage().setTimeouts( { implicit: 7000 } ); 
       await driver.sleep(3000);
+      await driver.manage().setTimeouts( { implicit: 7000 } ); 
+      
 
 
       await driver.findElement(By.xpath(`//a[normalize-space()='${page}']`)).click(); 
@@ -151,6 +155,15 @@ try {
         const element = await driver.wait(until.elementLocated(By.xpath(xpathexpression)), 1000); //==
         await driver.executeScript('arguments[0].scrollIntoView()', element);
         await driver.executeScript('arguments[0].scrollIntoView()', element);
+
+        
+        
+        //var campaignText = await driver.findElement(By.xpath(xpathexpression));
+       // var nameOfCampaign = campaignText.getText();
+         //console.log('Campaign Name -' +nameOfCampaign);
+
+         await driver.sleep(2000);
+
         await element.click();
 
        
@@ -269,13 +282,13 @@ try {
 
         /*let timestamp = new Date().toISOString().slice(0, -5).replace(/:/g, '-');
         //fs.appendFileSync(`decoded-${timestamp}.txt`, deocodedfor + '\n');*/
-        fs.appendFileSync('decodedALL.txt', `Page number - ${page} and - ${xpathexpression}` + '\n');
-        fs.appendFileSync('decodedALL.txt', deocodedfor + '\n');
+        fs.appendFileSync('URLs-Decoded.txt', `Page number - ${page} | - ${xpathexpression} ` + '\n');
+        fs.appendFileSync('URLs-Decoded.txt', deocodedfor + '\n');
 
-        console.log("broken link----"+brokenPDFlink);
+        console.log("Broken PDF Link----"+brokenPDFlink);
         
       
-        fs.appendFileSync('brokenlinks.txt', brokenPDFlink + '\n');
+        //fs.appendFileSync('BrokenPDFLinks.txt', brokenPDFlink + '\n');
 
         await driver.sleep(2000);
 
@@ -283,6 +296,7 @@ try {
 
         await driver.switchTo().defaultContent();
         await driver.findElement(By.xpath("//a[normalize-space()='Search Campaign Finance System']")).click();
+        await driver.sleep(1000);
         await driver.findElement(By.xpath("//a[normalize-space()='Find a Campaign Financial Report']")).click();}
         catch (error) {
 
@@ -307,4 +321,3 @@ try {
 
 });
 });
-
