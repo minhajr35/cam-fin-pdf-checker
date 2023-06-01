@@ -10,7 +10,7 @@ describe("PDF Checker | Test Started", function () {
     //------------------------HEADLESS-------------------------------------
     //----------------------------------------------------------------------
 
-    /*const chrome = require('selenium-webdriver/chrome');
+    const chrome = require('selenium-webdriver/chrome');
               const options = new chrome.Options();
               options.addArguments('--headless');
               options.addArguments('--disable-gpu');
@@ -22,15 +22,15 @@ describe("PDF Checker | Test Started", function () {
               .forBrowser(browserSelect)
               .setChromeOptions(options)
               .setChromeService(new chrome.ServiceBuilder(browserSelect.path))
-              .build();*/
+              .build();
     //----------------------------------------------------------------------
     //----------------------------------------------------------------------
 
     //----------------------------------------------------------------------
     //--------------------------NON-HEADLESS--------------------------------
     //----------------------------------------------------------------------
-    const driver = await new Builder().forBrowser(browserSelect).build();
-    await driver.manage().window().maximize();
+    /*const driver = await new Builder().forBrowser(browserSelect).build();
+    await driver.manage().window().maximize();*/
 
     //----------------------------------------------------------------------
 
@@ -61,8 +61,8 @@ describe("PDF Checker | Test Started", function () {
     //console.log(recordNumberText);
 
     const str = recordNumberText;
-    const match = str.match(/\d+/g);
-    const number = match ? match[match.length - 1] : null;
+    const match = str.split(" ");
+    const number = match[5].replace(",", "");
     console.log(number + " - total records"); //records number
 
     const recordsPerPage = 50;
@@ -88,6 +88,35 @@ describe("PDF Checker | Test Started", function () {
       await driver.executeScript(
         "window.scrollTo(0, document.body.scrollHeight)"
       );
+
+      switch (true) {
+        case page >= 11:
+          await driver
+            .findElement(By.xpath("//a[normalize-space()='>>']"))
+            .click();
+          break;
+      }
+      switch (true) {
+        case page >= 21:
+          await driver
+            .findElement(By.xpath("//a[normalize-space()='>>']"))
+            .click();
+          break;
+      }
+
+      /* if (page > 20) {
+        await driver
+        .findElement(By.xpath("//a[normalize-space()='>>']"))
+        .click();
+        await driver
+        .findElement(By.xpath("//a[normalize-space()='>>']"))
+        .click();}*/
+      /*else if (page > 20){
+          await driver.sleep(1000);
+        await driver
+        .findElement(By.xpath("//a[normalize-space()='>>']"))
+        .click();*/
+
       await driver
         .findElement(By.xpath(`//a[normalize-space()='${page}']`))
         .click();
@@ -173,76 +202,53 @@ describe("PDF Checker | Test Started", function () {
         //let errorArray2 = [];
 
         try {
-          const titleName = driver.findElement(
-            By.xpath("//h3[@class='no-margin']")
-          );
-          await titleName.getText().then(function (text) {
-            console.log("Title Name is - " + text);
-          });
+          const pageTitle = await driver
+            .findElement(By.xpath("//h3[@class='no-margin']"))
+            .getText();
+          console.log(pageTitle);
 
-          const iframeElement = await driver.findElement(
-            By.xpath("//*[@id='iframe']")
-          );
-          await driver.switchTo().frame(iframeElement);
-
-          const idnumber = driver.findElement(
-            By.xpath("//*[@id='viewer']/div[1]/div[2]/span[6]")
-          );
-          await idnumber.getText().then(function (text) {
-            //console.log('ID number is *' +text);
-          });
-
-          await driver.manage().setTimeouts({ implicit: 20000 });
-          await driver
-            .findElement(By.xpath("(//*[normalize-space()='AFFIDA'])[1]"))
-            .getText()
-            .then((actualText) => {
-              const expectedText = "AFFIDA";
-              assert.equal(actualText, expectedText);
-              assert.equal(
-                actualText,
-                expectedText,
-                `actual text "${actualText}"  does not match "${idnumber}"`
-              );
+          if (pageTitle.includes("(Paper filing)")) {
+            await driver.close();
+            handles = await driver.getAllWindowHandles();
+            await driver.switchTo().window(handles[0]);
+          } else {
+            const titleName = driver.findElement(
+              By.xpath("//h3[@class='no-margin']")
+            );
+            await titleName.getText().then(function (text) {
+              console.log("Title Name is - " + text);
             });
 
-          let pdfMonth = driver.findElement(
-            By.xpath("//*[@id='viewer']/div[1]/div[2]/span[80]")
-          );
-          await pdfMonth.getText().then(function (text) {
-            //console.log('month is ' +text);
-          });
+            const iframeElement = await driver.findElement(
+              By.xpath("//*[@id='iframe']")
+            );
+            await driver.switchTo().frame(iframeElement);
 
-          let pdfDay = driver.findElement(
-            By.xpath("//*[@id='viewer']/div[1]/div[2]/span[81]")
-          );
-          await pdfDay.getText().then(function (text) {
-            //console.log('day is ' +text);
-          });
+            const idnumber = driver.findElement(
+              By.xpath("//*[@id='viewer']/div[1]/div[2]/span[6]")
+            );
+            await idnumber.getText().then(function (text) {
+              //console.log('ID number is *' +text);
+            });
 
-          let pdfYear = driver.findElement(
-            By.xpath("//*[@id='viewer']/div[1]/div[2]/span[82]")
-          );
-          await pdfYear.getText().then(function (text) {
-            //console.log('year is ' +text);
-          });
+            await driver.manage().setTimeouts({ implicit: 20000 });
+            const actualText = await driver
+              .findElement(By.xpath("(//*[contains(text(), 'Zip Code')])[1]"))
+              .getText();
+            const expectedPartialText = "Zip Code";
 
-          // console.log (`${pdfMonth} / ${pdfDay} / ${pdfYear}`);
+            const regex = new RegExp(expectedPartialText, "i");
+            assert.ok(
+              regex.test(
+                actualText,
+                `Partial text "${expectedPartialText}" not found.`
+              )
+            );
+            await driver.close();
 
-          /*if (pdfMonth.toString() === 5 || pdfDay.toString() === 16 || pdfYear.toString() === 2023){
-
-          console.log ("Date is good")
-        } else  {
-          let badDate = await driver.getCurrentUrl();
-          let timestamps = new Date().toISOString().slice(0, -5).replace(/:/g, '-');
-
-          fs.appendFileSync(`dateissue-${timestamps}.txt`, badDate + '\n');
-
-        }*/ //------------------------------------------------------------------------------------------------------------>>>>
-          await driver.close();
-
-          handles = await driver.getAllWindowHandles();
-          await driver.switchTo().window(handles[0]);
+            handles = await driver.getAllWindowHandles();
+            await driver.switchTo().window(handles[0]);
+          }
 
           //await driver.switchTo().defaultContent();
 
@@ -279,6 +285,8 @@ describe("PDF Checker | Test Started", function () {
           fs.appendFileSync("URLs-Decoded.txt", deocodedfor + "\n");
 
           console.log("Broken PDF Link----" + brokenPDFlink);
+
+          fs.appendFileSync("URLs-Decoded.txt", brokenPDFlink + "\n");
 
           //fs.appendFileSync('BrokenPDFLinks.txt', brokenPDFlink + '\n');
 
